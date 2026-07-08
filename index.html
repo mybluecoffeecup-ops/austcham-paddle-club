@@ -3,46 +3,84 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Emerald Hawks FC | Being Better, Together</title>
+<title>Emerald Hawks FC | Community Football Club in Singapore Since 1999</title>
+<meta name="description" content="Emerald Hawks FC is a Singapore community football club for every age and skill level — certified coaches, five squads from Mini Hawks to the Adult League. Book a free trial.">
+<link rel="canonical" href="https://mybluecoffeecup-ops.github.io/test2/">
+<meta name="theme-color" content="#0A2818">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Emerald Hawks FC">
+<meta property="og:title" content="Emerald Hawks FC | Community Football Club in Singapore Since 1999">
+<meta property="og:description" content="A Singapore community football club for every age and skill level — certified coaches, five squads from Mini Hawks to the Adult League. Book a free trial.">
+<meta property="og:url" content="https://mybluecoffeecup-ops.github.io/test2/">
+<meta property="og:locale" content="en_SG">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Emerald Hawks FC | Community Football Club in Singapore Since 1999">
+<meta name="twitter:description" content="A Singapore community football club for every age and skill level — certified coaches, five squads from Mini Hawks to the Adult League. Book a free trial.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SportsActivityLocation",
+  "name": "Emerald Hawks FC",
+  "description": "Community football club in Singapore for every age and skill level, founded in 1999.",
+  "foundingDate": "1999",
+  "url": "https://mybluecoffeecup-ops.github.io/test2/",
+  "telephone": "+65 6123 4567",
+  "email": "hello@emeraldhawksfc.example",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "123 Turf Field Road",
+    "addressLocality": "Singapore",
+    "postalCode": "519599",
+    "addressCountry": "SG"
+  }
+}
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 
 <style>
   /* ---------- Variables & Reset ---------- */
   :root {
-    --green-dark: #0b3d24;
-    --green: #146b3a;
-    --green-light: #1f8f4e;
-    --yellow: #ffcc33;
-    --yellow-light: #ffe08a;
-    --accent: #ff8a3d;
-    --accent-dark: #e5701f;
+    --pitch: #0a2818;
+    --pitch-2: #123420;
+    --turf: #1f6b3f;
+    --turf-light: #2e8c57;
+    --chalk: #f5f3ec;
+    --chalk-line: #dce3da;
+    --floodlight: #ffb627;
+    --floodlight-dark: #e89a0c;
+    --ink: #10241a;
+    --ink-soft: #4b5b52;
     --white: #ffffff;
-    --off-white: #f6faf7;
-    --gray-text: #52605a;
-    --dark-text: #12271a;
-    --border: #e1e9e3;
-    --radius: 14px;
-    --shadow: 0 10px 30px rgba(11, 61, 36, 0.12);
+    --radius: 10px;
+    --shadow: 0 12px 32px rgba(10, 40, 24, 0.16);
+    --font-display: 'Barlow Condensed', sans-serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'IBM Plex Mono', 'SFMono-Regular', monospace;
   }
 
   * { box-sizing: border-box; }
 
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
 
   body {
     margin: 0;
-    font-family: 'Poppins', system-ui, -apple-system, sans-serif;
-    color: var(--dark-text);
+    font-family: var(--font-body);
+    color: var(--ink);
     background: var(--white);
     line-height: 1.6;
   }
 
-  h1, h2, h3 { line-height: 1.2; margin: 0 0 0.5em; }
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    line-height: 1.05;
+    margin: 0 0 0.5em;
+    font-weight: 700;
+  }
 
   p { margin: 0 0 1em; }
 
@@ -52,40 +90,35 @@
 
   section { padding: 5rem 1.5rem; }
 
-  .container {
-    max-width: 1140px;
-    margin: 0 auto;
-  }
+  .container { max-width: 1140px; margin: 0 auto; }
 
   .section-heading {
     text-align: center;
     max-width: 640px;
-    margin: 0 auto 2.5rem;
+    margin: 0 auto 3rem;
   }
 
   .section-heading h2 {
-    font-size: clamp(1.8rem, 4vw, 2.4rem);
-    font-weight: 800;
-    color: var(--green-dark);
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--pitch);
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
   }
 
-  .section-heading p {
-    color: var(--gray-text);
-    font-size: 1.05rem;
-  }
+  .section-heading p { color: var(--ink-soft); font-size: 1.05rem; }
 
   .eyebrow {
     display: inline-block;
+    font-family: var(--font-mono);
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--green);
-    background: rgba(20, 107, 58, 0.1);
-    padding: 0.3rem 0.8rem;
-    border-radius: 999px;
-    margin-bottom: 0.75rem;
+    letter-spacing: 0.12em;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--turf);
+    margin-bottom: 0.9rem;
   }
+
+  .eyebrow::before { content: "● "; color: var(--floodlight-dark); }
 
   /* ---------- Buttons ---------- */
   .btn {
@@ -93,57 +126,79 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    padding: 0.85rem 1.75rem;
-    border-radius: 999px;
-    font-family: inherit;
-    font-weight: 600;
-    font-size: 1rem;
+    padding: 0.9rem 1.85rem;
+    border-radius: 8px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
     text-decoration: none;
     border: 2px solid transparent;
     cursor: pointer;
-    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, color 0.18s ease;
   }
 
   .btn:hover { transform: translateY(-2px); }
 
   .btn-primary {
-    background: var(--accent);
-    color: var(--white);
-    box-shadow: 0 8px 20px rgba(255, 138, 61, 0.35);
+    background: var(--floodlight);
+    color: var(--pitch);
+    box-shadow: 0 10px 24px rgba(255, 182, 39, 0.35);
   }
 
-  .btn-primary:hover { background: var(--accent-dark); }
+  .btn-primary:hover { background: var(--floodlight-dark); }
 
   .btn-secondary {
     background: transparent;
     color: var(--white);
-    border-color: rgba(255, 255, 255, 0.6);
+    border-color: rgba(255, 255, 255, 0.5);
   }
 
-  .btn-secondary:hover { background: rgba(255, 255, 255, 0.12); }
+  .btn-secondary:hover { background: rgba(255, 255, 255, 0.12); border-color: rgba(255, 255, 255, 0.8); }
 
   /* ---------- Focus visibility ---------- */
   a:focus-visible,
   button:focus-visible,
   input:focus-visible,
   textarea:focus-visible {
-    outline: 3px solid var(--yellow);
+    outline: 3px solid var(--floodlight);
     outline-offset: 2px;
   }
+
+  /* ---------- Crest ---------- */
+  .crest {
+    width: 44px;
+    height: 50px;
+    flex-shrink: 0;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 55%, 50% 100%, 0% 55%);
+    background: linear-gradient(160deg, var(--turf-light), var(--turf) 55%, var(--pitch) 100%);
+    box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--chalk);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+  }
+
+  #hero .crest { width: 68px; height: 78px; font-size: 1.6rem; margin: 0 auto 1.25rem; }
 
   /* ---------- Header / Nav ---------- */
   header {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: var(--green-dark);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+    background: var(--pitch);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
   }
 
   .nav-wrap {
     max-width: 1140px;
     margin: 0 auto;
-    padding: 0.9rem 1.5rem;
+    padding: 0.75rem 1.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -152,22 +207,14 @@
   .brand {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
-    font-weight: 800;
-    font-size: 1.2rem;
+    gap: 0.7rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
     color: var(--white);
     text-decoration: none;
-  }
-
-  .brand-badge {
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, var(--yellow), var(--green-light));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
   }
 
   .nav-toggle {
@@ -185,7 +232,7 @@
     top: 100%;
     left: 0;
     right: 0;
-    background: var(--green-dark);
+    background: var(--pitch);
     flex-direction: column;
     align-items: stretch;
     padding: 0.5rem 1.5rem 1.5rem;
@@ -203,13 +250,16 @@
   }
 
   nav#main-nav a.cta-link {
-    color: var(--green-dark);
-    background: var(--yellow);
-    border-radius: 999px;
+    color: var(--pitch);
+    background: var(--floodlight);
+    border-radius: 8px;
     padding: 0.6rem 1.2rem;
     text-align: center;
     margin-top: 0.75rem;
     font-weight: 700;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
   }
 
   @media (min-width: 768px) {
@@ -226,44 +276,75 @@
     }
 
     nav#main-nav a { border-bottom: none; padding: 0; }
-
     nav#main-nav a.cta-link { margin-top: 0; }
   }
 
   /* ---------- Hero ---------- */
   #hero {
-    background: radial-gradient(circle at top left, var(--green-light), var(--green-dark) 70%);
+    position: relative;
+    overflow: hidden;
+    background:
+      repeating-linear-gradient(110deg, rgba(255, 255, 255, 0.025) 0 40px, rgba(0, 0, 0, 0.05) 40px 80px),
+      radial-gradient(circle at 12% -10%, rgba(255, 182, 39, 0.18), transparent 45%),
+      linear-gradient(160deg, var(--pitch-2), var(--pitch) 75%);
     color: var(--white);
-    padding: 6rem 1.5rem 4rem;
+    padding: 6.5rem 1.5rem 4.5rem;
     text-align: center;
   }
 
-  #hero .brand-badge {
-    width: 64px;
-    height: 64px;
-    font-size: 1.8rem;
-    margin: 0 auto 1rem;
+  #hero::after {
+    content: "";
+    position: absolute;
+    right: -12%;
+    bottom: -22%;
+    width: 46vw;
+    height: 46vw;
+    max-width: 520px;
+    max-height: 520px;
+    border: 2px solid rgba(245, 243, 236, 0.08);
+    border-radius: 50%;
+    pointer-events: none;
   }
 
-  #hero .team-name {
+  .hero-inner { position: relative; z-index: 1; }
+
+  .hero-inner > * {
+    animation: heroRise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .hero-inner > *:nth-child(1) { animation-delay: 0s; }
+  .hero-inner > *:nth-child(2) { animation-delay: 0.08s; }
+  .hero-inner > *:nth-child(3) { animation-delay: 0.16s; }
+  .hero-inner > *:nth-child(4) { animation-delay: 0.24s; }
+  .hero-inner > *:nth-child(5) { animation-delay: 0.32s; }
+  .hero-inner > *:nth-child(6) { animation-delay: 0.4s; }
+
+  @keyframes heroRise {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .team-name {
+    font-family: var(--font-mono);
     text-transform: uppercase;
-    letter-spacing: 0.15em;
-    font-size: 0.9rem;
-    color: var(--yellow-light);
-    font-weight: 700;
-    margin-bottom: 1rem;
+    letter-spacing: 0.14em;
+    font-size: 0.78rem;
+    color: rgba(245, 243, 236, 0.75);
+    font-weight: 500;
+    margin-bottom: 1.1rem;
   }
 
   #hero h1 {
-    font-size: clamp(2.2rem, 6vw, 3.6rem);
-    font-weight: 800;
+    font-size: clamp(2.6rem, 7vw, 4.4rem);
+    text-transform: uppercase;
+    letter-spacing: 0.005em;
   }
 
   #hero .subheading {
     max-width: 620px;
     margin: 0 auto 2rem;
     font-size: clamp(1rem, 2vw, 1.2rem);
-    color: rgba(255, 255, 255, 0.88);
+    color: rgba(255, 255, 255, 0.85);
   }
 
   .hero-buttons {
@@ -274,32 +355,94 @@
     margin-bottom: 3rem;
   }
 
-  .facts-strip {
-    max-width: 900px;
+  /* ---------- Scoreboard ---------- */
+  .scoreboard {
+    max-width: 880px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-    padding-top: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 8px;
+    overflow: hidden;
   }
 
   @media (min-width: 640px) {
-    .facts-strip { grid-template-columns: repeat(3, 1fr); }
+    .scoreboard { grid-template-columns: repeat(4, 1fr); }
   }
 
-  .fact-item {
-    font-weight: 600;
-    color: var(--white);
-    font-size: 0.95rem;
+  .scoreboard-item {
+    background: rgba(0, 0, 0, 0.22);
+    padding: 1.2rem 0.75rem;
+    text-align: center;
   }
 
-  .fact-item strong {
+  .scoreboard-item strong {
     display: block;
-    font-size: 1.3rem;
-    color: var(--yellow);
-    margin-bottom: 0.2rem;
+    font-family: var(--font-mono);
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: var(--floodlight);
+    letter-spacing: 0.01em;
   }
+
+  .scoreboard-item span {
+    display: block;
+    margin-top: 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(245, 243, 236, 0.65);
+  }
+
+  /* ---------- Pitch-seam divider (signature element) ---------- */
+  .pitch-seam {
+    position: relative;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pitch-seam::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 2px;
+    background: currentColor;
+    opacity: 0.22;
+  }
+
+  .pitch-seam .seam-mark {
+    position: relative;
+    z-index: 1;
+    width: 26px;
+    height: 26px;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    opacity: 0.4;
+    background: inherit;
+  }
+
+  .pitch-seam .seam-mark::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .pitch-seam--onto-light { background: var(--chalk); color: var(--ink-soft); }
+  .pitch-seam--onto-dark-turf { background: var(--turf); color: rgba(245, 243, 236, 0.7); }
+  .pitch-seam--onto-white { background: var(--white); color: var(--ink-soft); }
+  .pitch-seam--onto-pitch { background: var(--pitch); color: rgba(245, 243, 236, 0.5); }
 
   /* ---------- Fade-in on scroll ---------- */
   .fade-in {
@@ -308,13 +451,128 @@
     transition: opacity 0.6s ease, transform 0.6s ease;
   }
 
-  .fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fade-in, .fade-in.visible { transition: none; transform: none; }
+    .hero-inner > * { animation: none; }
   }
 
+  /* ---------- Programs (Squad Sheet) ---------- */
+  #programs { background: var(--chalk); }
+
+  .squad-sheet {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid var(--chalk-line);
+  }
+
+  .squad-row {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: 0.25rem 1.5rem;
+    align-items: start;
+    padding: 1.75rem 0;
+    border-bottom: 1px solid var(--chalk-line);
+  }
+
+  @media (min-width: 768px) {
+    .squad-row { grid-template-columns: 3.5rem 1fr auto; align-items: center; }
+  }
+
+  .squad-no {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: var(--turf);
+    line-height: 1;
+  }
+
+  .squad-info h3 {
+    font-size: 1.5rem;
+    color: var(--pitch);
+    text-transform: none;
+    margin-bottom: 0.15rem;
+  }
+
+  .squad-meta {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--turf);
+    margin-bottom: 0.5rem;
+  }
+
+  .squad-info p:last-child { color: var(--ink-soft); margin-bottom: 0; max-width: 60ch; }
+
+  .squad-cta {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-size: 0.95rem;
+    color: var(--turf);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .squad-cta:hover { color: var(--floodlight-dark); }
+
+  @media (min-width: 768px) {
+    .squad-cta { margin-top: 0; grid-column: 3; }
+  }
+
+  /* ---------- Why Us ---------- */
+  #why-us { background: var(--turf); color: var(--white); }
+
+  #why-us .section-heading h2 { color: var(--white); }
+  #why-us .section-heading p { color: rgba(255, 255, 255, 0.8); }
+  #why-us .eyebrow { color: var(--floodlight); }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 640px) {
+    .why-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (min-width: 1024px) {
+    .why-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  .why-item { text-align: center; }
+
+  .why-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 1.1rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--floodlight);
+  }
+
+  .why-icon svg { width: 26px; height: 26px; }
+
+  .why-item h3 {
+    font-size: 1.3rem;
+    text-transform: none;
+    margin-bottom: 0.4rem;
+  }
+
+  .why-item p { color: rgba(255, 255, 255, 0.78); font-size: 0.95rem; margin-bottom: 0; }
+
   /* ---------- Testimonials ---------- */
-  #testimonials { background: var(--off-white); }
+  #testimonials { background: var(--chalk); }
 
   .testimonial-grid {
     display: grid;
@@ -332,7 +590,7 @@
 
   .testimonial-card {
     background: var(--white);
-    border: 1px solid var(--border);
+    border: 1px solid var(--chalk-line);
     border-radius: var(--radius);
     padding: 1.75rem;
     box-shadow: var(--shadow);
@@ -340,21 +598,23 @@
     flex-direction: column;
   }
 
-  .avatar {
-    width: 52px;
-    height: 52px;
+  .jersey-badge {
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
+    background: var(--pitch);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--white);
-    font-weight: 700;
-    font-size: 1.1rem;
+    color: var(--floodlight);
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 1.05rem;
     margin-bottom: 1rem;
   }
 
   .stars {
-    color: var(--yellow);
+    color: var(--floodlight-dark);
     letter-spacing: 0.1em;
     margin-bottom: 0.75rem;
     font-size: 0.95rem;
@@ -362,7 +622,7 @@
 
   .testimonial-card blockquote {
     margin: 0 0 1rem;
-    color: var(--gray-text);
+    color: var(--ink-soft);
     font-size: 0.95rem;
     flex-grow: 1;
   }
@@ -370,17 +630,31 @@
   .testimonial-card cite {
     font-style: normal;
     font-weight: 700;
-    color: var(--green-dark);
+    color: var(--pitch);
   }
 
   /* ---------- Enquiry Form ---------- */
   #enquiry { background: var(--white); }
 
+  .trust-bar {
+    max-width: 720px;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--turf);
+  }
+
   .form-card {
     max-width: 720px;
     margin: 0 auto;
-    background: var(--off-white);
-    border: 1px solid var(--border);
+    background: var(--chalk);
+    border: 1px solid var(--chalk-line);
     border-radius: var(--radius);
     padding: 2rem;
   }
@@ -408,7 +682,7 @@
     width: 100%;
     padding: 0.75rem 0.9rem;
     border-radius: 8px;
-    border: 1px solid var(--border);
+    border: 1px solid var(--chalk-line);
     font-family: inherit;
     font-size: 1rem;
     background: var(--white);
@@ -417,9 +691,7 @@
   .field textarea { resize: vertical; min-height: 100px; }
 
   .field input.invalid,
-  .field textarea.invalid {
-    border-color: #d64545;
-  }
+  .field textarea.invalid { border-color: #d64545; }
 
   .error-msg {
     display: block;
@@ -429,13 +701,14 @@
     min-height: 1.1em;
   }
 
-  .form-submit {
-    margin-top: 0.5rem;
-    width: 100%;
-  }
+  .form-submit { margin-top: 0.5rem; width: 100%; }
 
-  @media (min-width: 640px) {
-    .form-submit { width: auto; }
+  @media (min-width: 640px) { .form-submit { width: auto; } }
+
+  .form-fineprint {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
   }
 
   #form-status {
@@ -446,21 +719,12 @@
     display: none;
   }
 
-  #form-status.success {
-    display: block;
-    background: rgba(20, 107, 58, 0.12);
-    color: var(--green-dark);
-  }
-
-  #form-status.failure {
-    display: block;
-    background: rgba(214, 69, 69, 0.12);
-    color: #c0392b;
-  }
+  #form-status.success { display: block; background: rgba(31, 107, 63, 0.12); color: var(--turf); }
+  #form-status.failure { display: block; background: rgba(214, 69, 69, 0.12); color: #c0392b; }
 
   /* ---------- Footer ---------- */
   footer {
-    background: var(--green-dark);
+    background: var(--pitch);
     color: rgba(255, 255, 255, 0.85);
     padding: 3.5rem 1.5rem 1.5rem;
   }
@@ -479,32 +743,35 @@
     .footer-grid { grid-template-columns: repeat(3, 1fr); }
   }
 
-  .footer-grid h3 {
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-transform: uppercase;
     color: var(--white);
-    font-size: 1.05rem;
     margin-bottom: 1rem;
   }
 
-  .footer-grid ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  .footer-grid h3 {
+    color: var(--white);
+    font-size: 1.05rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 1rem;
   }
+
+  .footer-grid ul { list-style: none; padding: 0; margin: 0; }
 
   .footer-grid li { margin-bottom: 0.6rem; }
 
-  .footer-grid a {
-    color: rgba(255, 255, 255, 0.85);
-    text-decoration: none;
-  }
+  .footer-grid a { color: rgba(255, 255, 255, 0.85); text-decoration: none; }
 
-  .footer-grid a:hover { color: var(--yellow); }
+  .footer-grid a:hover { color: var(--floodlight); }
 
-  .social-links {
-    display: flex;
-    gap: 0.75rem;
-    margin-top: 1rem;
-  }
+  .social-links { display: flex; gap: 0.75rem; margin-top: 1rem; }
 
   .social-links a {
     width: 38px;
@@ -514,10 +781,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.15s ease;
+    transition: background 0.15s ease, color 0.15s ease;
   }
 
-  .social-links a:hover { background: var(--yellow); color: var(--green-dark); }
+  .social-links a svg { width: 18px; height: 18px; }
+
+  .social-links a:hover { background: var(--floodlight); color: var(--pitch); }
 
   .footer-bottom {
     max-width: 1140px;
@@ -525,7 +794,7 @@
     padding-top: 1.5rem;
     text-align: center;
     font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.55);
   }
 </style>
 </head>
@@ -535,12 +804,13 @@
 <header>
   <div class="nav-wrap">
     <a href="#hero" class="brand">
-      <span class="brand-badge" aria-hidden="true">🦅</span>
+      <span class="crest" aria-hidden="true">EH</span>
       Emerald Hawks FC
     </a>
     <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Toggle navigation menu">☰</button>
     <nav id="main-nav" aria-label="Primary">
       <a href="#hero">Home</a>
+      <a href="#programs">Programs</a>
       <a href="#testimonials">Testimonials</a>
       <a href="#contact">Contact</a>
       <a href="#enquiry" class="cta-link">Book a Trial</a>
@@ -552,20 +822,129 @@
 
   <!-- Hero Section -->
   <section id="hero">
-    <div class="team-name">Singapore &middot; Est. 1999</div>
-    <div class="brand-badge" aria-hidden="true">🦅</div>
-    <h1>Being Better, Together</h1>
-    <p class="subheading">Emerald Hawks FC is a community football club for players of every age and skill level — built on certified coaching, disciplined training, and a team that shows up for each other on and off the pitch.</p>
-    <div class="hero-buttons">
-      <a href="#enquiry" class="btn btn-primary">Book a Trial</a>
-      <a href="#testimonials" class="btn btn-secondary">Our Team</a>
-    </div>
-    <div class="facts-strip">
-      <div class="fact-item"><strong>Singapore</strong>Based club, 4 training grounds</div>
-      <div class="fact-item"><strong>100%</strong>Certified, licensed coaches</div>
-      <div class="fact-item"><strong>25+</strong>Years of club history</div>
+    <div class="hero-inner">
+      <div class="team-name">Singapore &middot; Est. 1999</div>
+      <span class="crest" aria-hidden="true">EH</span>
+      <h1>Being Better, Together</h1>
+      <p class="subheading">Emerald Hawks FC is a community football club for players of every age and skill level — built on certified coaching, disciplined training, and a team that shows up for each other on and off the pitch.</p>
+      <div class="hero-buttons">
+        <a href="#enquiry" class="btn btn-primary">Book a Free Trial</a>
+        <a href="#programs" class="btn btn-secondary">See Programs</a>
+      </div>
+      <div class="scoreboard">
+        <div class="scoreboard-item"><strong>1999</strong><span>Club Founded</span></div>
+        <div class="scoreboard-item"><strong>25+</strong><span>Years on the Pitch</span></div>
+        <div class="scoreboard-item"><strong>4</strong><span>Training Grounds</span></div>
+        <div class="scoreboard-item"><strong>100%</strong><span>Licensed Coaches</span></div>
+      </div>
     </div>
   </section>
+
+  <div class="pitch-seam pitch-seam--onto-light" aria-hidden="true"><span class="seam-mark"></span></div>
+
+  <!-- Programs Section -->
+  <section id="programs">
+    <div class="container">
+      <div class="section-heading fade-in">
+        <span class="eyebrow">Programs</span>
+        <h2>Find Your Squad</h2>
+        <p>Five pathways, one club. Pick the group that matches your age and ambition — every squad trains under the same certified coaching staff.</p>
+      </div>
+
+      <ol class="squad-sheet">
+        <li class="squad-row fade-in">
+          <span class="squad-no" aria-hidden="true">01</span>
+          <div class="squad-info">
+            <h3>Mini Hawks</h3>
+            <p class="squad-meta">Ages 5–8 &middot; Saturday mornings</p>
+            <p>Fundamentals, coordination, and first touches on the ball — all games, no pressure.</p>
+          </div>
+          <a href="#enquiry" class="squad-cta">Enquire →</a>
+        </li>
+        <li class="squad-row fade-in">
+          <span class="squad-no" aria-hidden="true">02</span>
+          <div class="squad-info">
+            <h3>Junior Academy</h3>
+            <p class="squad-meta">Ages 9–12 &middot; Tue/Thu evenings + Saturday</p>
+            <p>Technical foundations and tactical basics, with a first taste of competitive fixtures.</p>
+          </div>
+          <a href="#enquiry" class="squad-cta">Enquire →</a>
+        </li>
+        <li class="squad-row fade-in">
+          <span class="squad-no" aria-hidden="true">03</span>
+          <div class="squad-info">
+            <h3>Youth Elite</h3>
+            <p class="squad-meta">Ages 13–18 &middot; Four sessions weekly</p>
+            <p>A structured development pathway for players targeting representative football.</p>
+          </div>
+          <a href="#enquiry" class="squad-cta">Enquire →</a>
+        </li>
+        <li class="squad-row fade-in">
+          <span class="squad-no" aria-hidden="true">04</span>
+          <div class="squad-info">
+            <h3>Adult League</h3>
+            <p class="squad-meta">Ages 18+ &middot; Tue/Thu evenings + Saturday matches</p>
+            <p>Competitive Saturday league football in a disciplined, social environment.</p>
+          </div>
+          <a href="#enquiry" class="squad-cta">Enquire →</a>
+        </li>
+        <li class="squad-row fade-in">
+          <span class="squad-no" aria-hidden="true">05</span>
+          <div class="squad-info">
+            <h3>Women's Football</h3>
+            <p class="squad-meta">Ages 16+, all levels &middot; Wed evenings + Sunday matches</p>
+            <p>A growing squad open to first-timers and experienced players alike.</p>
+          </div>
+          <a href="#enquiry" class="squad-cta">Enquire →</a>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="pitch-seam pitch-seam--onto-dark-turf" aria-hidden="true"><span class="seam-mark"></span></div>
+
+  <!-- Why Us Section -->
+  <section id="why-us">
+    <div class="container">
+      <div class="section-heading fade-in">
+        <span class="eyebrow">Why Emerald Hawks</span>
+        <h2>Built On Fundamentals</h2>
+        <p>Four things every squad can count on, from Mini Hawks to the Adult League.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-item fade-in">
+          <div class="why-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+          </div>
+          <h3>Certified Coaching</h3>
+          <p>Every coach holds a recognized football certification and a valid clearance to work with children.</p>
+        </div>
+        <div class="why-item fade-in">
+          <div class="why-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          </div>
+          <h3>25 Years Strong</h3>
+          <p>Founded in 1999, we've grown three generations of Singapore footballers since.</p>
+        </div>
+        <div class="why-item fade-in">
+          <div class="why-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M15.2 14.3c2.2.4 3.8 2.3 3.8 4.7"/></svg>
+          </div>
+          <h3>Community First</h3>
+          <p>We track development in confidence and skill, not just the scoreline.</p>
+        </div>
+        <div class="why-item fade-in">
+          <div class="why-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7.5 7-12a7 7 0 10-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.4"/></svg>
+          </div>
+          <h3>Four Home Grounds</h3>
+          <p>Training bases across the island mean a session near you, most nights of the week.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="pitch-seam pitch-seam--onto-light" aria-hidden="true"><span class="seam-mark"></span></div>
 
   <!-- Testimonials Section -->
   <section id="testimonials">
@@ -577,25 +956,25 @@
       </div>
       <div class="testimonial-grid">
         <article class="testimonial-card fade-in">
-          <div class="avatar" style="background: var(--green);">JT</div>
+          <div class="jersey-badge" aria-hidden="true">09</div>
           <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
           <blockquote>"Joining Emerald Hawks was the best decision for my son. The coaches genuinely care about development, not just winning, and his confidence on the pitch has grown so much."</blockquote>
           <cite>Jamie Tan, Parent</cite>
         </article>
         <article class="testimonial-card fade-in">
-          <div class="avatar" style="background: var(--accent);">SR</div>
+          <div class="jersey-badge" aria-hidden="true">14</div>
           <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
           <blockquote>"I've trained with three clubs in Singapore and this is by far the most organized. Sessions start on time, drills are structured, and the coaches actually track your progress."</blockquote>
-          <cite>Sarah Rahman, U18 Player</cite>
+          <cite>Sarah Rahman, Youth Elite</cite>
         </article>
         <article class="testimonial-card fade-in">
-          <div class="avatar" style="background: var(--green-light);">MK</div>
+          <div class="jersey-badge" aria-hidden="true">22</div>
           <div class="stars" aria-label="4 out of 5 stars">★★★★☆</div>
           <blockquote>"Great community feel — I made most of my closest friends through this club. The Saturday matches are the highlight of my week, win or lose."</blockquote>
           <cite>Marcus Koh, Adult League</cite>
         </article>
         <article class="testimonial-card fade-in">
-          <div class="avatar" style="background: var(--yellow); color: var(--green-dark);">PL</div>
+          <div class="jersey-badge" aria-hidden="true">07</div>
           <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
           <blockquote>"25 years of history really shows. There's a culture here that's hard to find elsewhere — disciplined, welcoming, and focused on getting better together."</blockquote>
           <cite>Priya Lakshmi, Club Alumna</cite>
@@ -603,6 +982,8 @@
       </div>
     </div>
   </section>
+
+  <div class="pitch-seam pitch-seam--onto-white" aria-hidden="true"><span class="seam-mark"></span></div>
 
   <!-- Enquiry Form Section -->
   <section id="enquiry">
@@ -612,6 +993,12 @@
         <h2>Request a Trial</h2>
         <p>Tell us a bit about yourself and we'll be in touch to schedule your first session.</p>
       </div>
+
+      <p class="trust-bar fade-in">
+        <span>Trials every Saturday morning</span>
+        <span>Reply within 24 hours</span>
+        <span>No obligation, no spam</span>
+      </p>
 
       <div class="form-card fade-in">
         <form id="enquiry-form" novalidate>
@@ -647,7 +1034,9 @@
             </div>
           </div>
 
-          <button type="submit" class="btn btn-primary form-submit">Submit Enquiry</button>
+          <button type="submit" class="btn btn-primary form-submit">Request a Trial</button>
+
+          <p class="form-fineprint">We'll never share your details. One reply, no sales calls.</p>
 
           <div id="form-status" role="status" aria-live="polite"></div>
         </form>
@@ -661,7 +1050,10 @@
 <footer id="contact">
   <div class="footer-grid">
     <div>
-      <h3>Emerald Hawks FC</h3>
+      <div class="footer-brand">
+        <span class="crest" aria-hidden="true">EH</span>
+        Emerald Hawks FC
+      </div>
       <p>Being better, together. A community football club welcoming players of every age and skill level since 1999.</p>
       <p>123 Turf Field Road<br>Singapore 519599</p>
     </div>
@@ -669,7 +1061,7 @@
       <h3>Quick Links</h3>
       <ul>
         <li><a href="#hero">Home</a></li>
-        <li><a href="#enquiry">Services</a></li>
+        <li><a href="#programs">Programs</a></li>
         <li><a href="#testimonials">Testimonials</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -681,9 +1073,15 @@
         <li>Email: hello@emeraldhawksfc.example</li>
       </ul>
       <div class="social-links">
-        <a href="#" aria-label="Emerald Hawks FC on Facebook">f</a>
-        <a href="#" aria-label="Emerald Hawks FC on Instagram">ig</a>
-        <a href="#" aria-label="Emerald Hawks FC on Twitter">tw</a>
+        <a href="#" aria-label="Emerald Hawks FC on Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7.5h2.5l.5-3h-3V8.5c0-.9.3-1.5 1.6-1.5H16V4.3C15.6 4.2 14.7 4 13.6 4c-2.3 0-3.9 1.4-3.9 4v2.5H7v3h2.7V21h3.8z"/></svg>
+        </a>
+        <a href="#" aria-label="Emerald Hawks FC on Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+        </a>
+        <a href="#" aria-label="Emerald Hawks FC on X">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4l7.5 9.5L4.4 20H7l5.2-5.8L16.5 20H20l-7.9-9.9L19.6 4H17l-4.8 5.4L8.5 4H4z"/></svg>
+        </a>
       </div>
     </div>
   </div>
@@ -802,7 +1200,7 @@
     console.log('Enquiry submitted:', data);
 
     status.classList.add('success');
-    status.textContent = "Thank you! We'll contact you shortly.";
+    status.textContent = "Thanks! We'll reply within 24 hours to confirm your trial.";
     form.reset();
   });
 </script>
