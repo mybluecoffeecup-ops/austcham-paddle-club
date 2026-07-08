@@ -4,6 +4,8 @@ A single-page marketing site for a Singapore-based football club, built with pla
 
 **Live site:** https://mybluecoffeecup-ops.github.io/test2/
 
+![Emerald Hawks FC homepage screenshot](assets/screenshot.png)
+
 ## Features
 
 - Sticky, responsive navbar with a mobile hamburger menu
