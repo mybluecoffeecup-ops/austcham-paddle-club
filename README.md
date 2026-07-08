@@ -13,7 +13,8 @@ A single-page marketing site for a Singapore-based football club, built with pla
 - Pitch-line "kickoff mark" dividers between sections and a club crest badge, tying the visual identity to the sport
 - Programs section listing all five squads (Mini Hawks through Adult League)
 - Why Us trust section and a testimonials grid with scroll-triggered fade-in animations
-- Trial enquiry form with client-side validation (name, email, phone) and accessible inline error messages
+- Trial enquiry form with client-side validation (name, email, phone), accessible inline error messages, and live submission via [FormSubmit](https://formsubmit.co/)
+- Floating WhatsApp chat widget (bottom-right) with a pulsing call-to-action, suggested quick-reply questions, and deep links to `wa.me`
 - SEO metadata: descriptive title/description, Open Graph & Twitter cards, canonical URL, and JSON-LD structured data
 - Footer with contact details, quick links, and an auto-updating copyright year
 
