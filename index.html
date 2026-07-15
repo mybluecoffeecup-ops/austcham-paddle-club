@@ -8,6 +8,16 @@
 <link rel="canonical" href="https://mybluecoffeecup-ops.github.io/test2/">
 <meta name="theme-color" content="#0A2B1F">
 
+<!-- Start every fresh load at the top: don't let the browser restore the prior
+     scroll position, and clear any stale in-page hash (e.g. #testimonials left in
+     the URL after clicking a nav link) before the body is parsed, so a refresh
+     never jumps to that section. Runs in <head> to avoid a visible scroll flash.
+     In-session nav-link clicks still scroll normally. -->
+<script>
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+</script>
+
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Austcham Paddle Club Singapore">
 <meta property="og:title" content="Austcham Paddle Club Singapore | Dragon Boat &amp; Outrigger Canoe Since 1988">
@@ -502,83 +512,163 @@
   }
 
   /* ---------- Activities ---------- */
-  #activities { background: var(--paper); }
+  #activities {
+    position: relative;
+    background: #081f14;
+    overflow: hidden;
+    padding: 6rem 1.5rem;
+  }
 
-  .boat-grid {
+  /* cursor glow layer (JS sets --mx / --my via initSpotlight) */
+  .sports-spot {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: radial-gradient(circle 380px at var(--mx, 50%) var(--my, 40%), rgba(255, 199, 44, 0.1), transparent 70%);
+    pointer-events: none;
+  }
+
+  .sports-layout {
+    position: relative;
+    z-index: 2;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 2.5rem;
+    align-items: center;
   }
 
-  .boat-card {
-    position: relative;
-    background: var(--white);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    overflow: hidden;
-    box-shadow: 0 6px 18px rgba(10, 43, 31, 0.08);
-    transition: box-shadow 0.25s ease, border-color 0.25s ease;
-    transform-style: preserve-3d;
-    will-change: transform;
+  .sports-copy .eyebrow { color: var(--gold); }
+
+  .sports-copy h2 {
+    font-size: clamp(2.2rem, 5.5vw, 3.4rem);
+    color: var(--white);
   }
 
-  .boat-card:hover {
-    box-shadow: var(--shadow);
-    border-color: rgba(255, 199, 44, 0.55);
+  .sports-copy > p { color: rgba(255, 255, 255, 0.75); max-width: 460px; }
+
+  .sports-copy .swipe-hint {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgba(255, 199, 44, 0.7);
+    margin: 1.4rem 0 1.2rem;
   }
 
-  .boat-photo {
+  .sports-controls { display: flex; align-items: center; gap: 0.8rem; }
+
+  .sport-arrow {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    color: var(--white);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+  }
+
+  .sport-arrow:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  .sport-dots { display: flex; gap: 0.55rem; margin-left: 0.5rem; }
+
+  .sport-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.3);
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .sport-dot[aria-current="true"] { background: var(--gold); transform: scale(1.25); }
+
+  .sport-deck {
     position: relative;
     aspect-ratio: 4 / 3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    background:
-      radial-gradient(ellipse at 30% 20%, rgba(255, 199, 44, 0.28), transparent 55%),
-      linear-gradient(150deg, var(--green-mid), var(--deep));
+    max-height: 70vh;
+    touch-action: pan-y;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
   }
 
-  .boat-img {
+  .sport-deck.dragging { cursor: grabbing; }
+
+  .sport-card {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: #0a2b1f;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+    transition: transform 0.55s cubic-bezier(0.22, 0.8, 0.3, 1), opacity 0.45s ease;
+    will-change: transform, opacity;
+  }
+
+  .sport-card img {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    pointer-events: none;
   }
 
-  .boat-watermark {
-    width: 38%;
-    max-width: 84px;
-    height: auto;
-    color: rgba(255, 199, 44, 0.55);
-    transition: transform 0.3s ease;
-  }
-
-  .boat-card:hover .boat-watermark { transform: scale(1.08); }
-
-  .boat-body { padding: 1.4rem 1.5rem 1.5rem; }
-
-  .boat-meta {
+  .sport-num {
+    position: absolute;
+    top: 1.1rem;
+    right: 1.3rem;
     font-family: var(--font-mono);
-    font-size: 0.72rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+  }
+
+  .sport-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 2.6rem 1.6rem 1.4rem;
+    background: linear-gradient(transparent, rgba(4, 16, 10, 0.92));
+  }
+
+  .sport-caption h3 { color: var(--white); font-size: 1.7rem; margin-bottom: 0.35rem; }
+
+  .sport-caption .sport-meta {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.14em;
-    color: var(--gold-deep);
-    margin: 0 0 0.5rem;
+    color: var(--gold);
+    margin: 0 0 0.45rem;
   }
 
-  .boat-card h3 { font-size: 1.5rem; color: var(--green); margin-bottom: 0.5rem; }
-
-  .boat-desc { margin: 0; color: var(--ink-soft); }
-
-  @media (min-width: 640px) {
-    .boat-grid { grid-template-columns: repeat(2, 1fr); }
+  .sport-caption p:last-child {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.92rem;
+    max-width: 520px;
   }
 
-  @media (min-width: 1024px) {
-    .boat-grid { grid-template-columns: repeat(4, 1fr); }
+  /* stacked-deck slots (assigned by JS) */
+  .sport-card[data-slot="0"] { transform: translateX(0) scale(1); opacity: 1; z-index: 4; }
+  .sport-card[data-slot="1"] { transform: translateX(5%) translateY(2%) scale(0.94); opacity: 0.5; z-index: 3; }
+  .sport-card[data-slot="2"] { transform: translateX(10%) translateY(4%) scale(0.88); opacity: 0.25; z-index: 2; }
+  .sport-card[data-slot="3"] { transform: translateX(14%) translateY(6%) scale(0.84); opacity: 0; z-index: 1; }
+
+  /* the active card tracks the pointer directly while dragging */
+  .sport-deck.dragging .sport-card[data-slot="0"] { transition: none; }
+
+  @media (min-width: 900px) {
+    .sports-layout { grid-template-columns: minmax(300px, 2fr) 3fr; gap: 3.5rem; }
   }
 
   /* ---------- Why Austcham ---------- */
@@ -1696,6 +1786,8 @@
     .waterline .boat,
     .waterline .boat img { animation: none; }
 
+    .sport-card { transition: none; }
+
     /* rest the fleet at scattered positions instead of the drift origin */
     .waterline .boat-1 { transform: translateX(14vw); }
     .waterline .boat-2 { transform: translateX(52vw); }
@@ -1789,61 +1881,62 @@
     </div>
   </section>
 
-  <!-- Activities Section -->
+  <!-- Activities Section: swipeable stacked-deck sports carousel -->
   <section id="activities">
-    <div class="container">
-      <div class="section-heading fade-in">
+    <div class="sports-spot" aria-hidden="true"></div>
+    <div class="container sports-layout">
+      <div class="sports-copy fade-in">
         <span class="eyebrow">The Sports</span>
         <h2>Pick Your Paddle Style</h2>
         <p>Three ways onto the water, one crew culture. Every discipline welcomes first-timers and race paddlers alike.</p>
+        <p class="swipe-hint">Swipe or drag the cards — or use the arrows.</p>
+        <div class="sports-controls">
+          <button type="button" class="sport-arrow" id="sport-prev" aria-label="Previous sport">←</button>
+          <button type="button" class="sport-arrow" id="sport-next" aria-label="Next sport">→</button>
+          <div class="sport-dots" id="sport-dots">
+            <button type="button" class="sport-dot" aria-label="Go to Dragon Boat" aria-current="true"></button>
+            <button type="button" class="sport-dot" aria-label="Go to Outrigger Canoe"></button>
+            <button type="button" class="sport-dot" aria-label="Go to Single Crafts"></button>
+            <button type="button" class="sport-dot" aria-label="Go to Land &amp; Socials"></button>
+          </div>
+        </div>
       </div>
 
-      <div class="boat-grid">
-        <article class="boat-card tilt fade-in">
-          <div class="boat-photo">
-            <!-- PLACEHOLDER: swap for <img class="boat-img" src="…" alt="…"> when a real photo is ready -->
-            <svg class="boat-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 15c3-1 5 1 8 1s5-2 8-1c2 .6 3 1.5 4 1-1 3-4 5-10 5S3 19 2 16z"/><path d="M5 15c0-4 3-8 7-10 4 2 7 6 7 10"/><path d="M12 5v10"/></svg>
-          </div>
-          <div class="boat-body">
-            <p class="boat-meta">Kallang Basin · Flagship crews</p>
+      <div class="sport-deck fade-in" id="sport-deck" role="group" aria-roledescription="carousel" aria-label="Our paddle sports">
+        <article class="sport-card" data-slot="0">
+          <img src="Pictures/sport-dragonboat.jpg" alt="Austcham dragon boat crew racing at the Singapore Dragon Boat Festival" loading="lazy">
+          <span class="sport-num" aria-hidden="true">01</span>
+          <div class="sport-caption">
+            <p class="sport-meta">Kallang Basin · Flagship crews</p>
             <h3>Dragon Boat</h3>
-            <p class="boat-desc">The heart of the club — race crews with consistent medal placements plus sessions built for newcomers. Twenty paddlers, one drum, full send.</p>
+            <p>The heart of the club — race crews with consistent medal placements plus sessions built for newcomers. Twenty paddlers, one drum, full send.</p>
           </div>
         </article>
-
-        <article class="boat-card tilt fade-in">
-          <div class="boat-photo">
-            <!-- PLACEHOLDER: swap for <img class="boat-img" src="…" alt="…"> when a real photo is ready -->
-            <svg class="boat-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 16c4-2 14-2 18 0-1 2-4 3.5-9 3.5S4 18 3 16z"/><path d="M2 12h9"/><path d="M4 12v4"/><path d="M9 12v3.5"/><path d="M14 4l-3 12"/></svg>
-          </div>
-          <div class="boat-body">
-            <p class="boat-meta">Sentosa · OC6 crews</p>
+        <article class="sport-card" data-slot="1">
+          <img src="Pictures/sport-outrigger.jpg" alt="Austcham outrigger canoe crew racing at the Singapore Ocean Cup" loading="lazy">
+          <span class="sport-num" aria-hidden="true">02</span>
+          <div class="sport-caption">
+            <p class="sport-meta">Sentosa · OC6 crews</p>
             <h3>Outrigger Canoe</h3>
-            <p class="boat-desc">Six-seat outrigger canoes trained off Sentosa, with change races around the region. Open-water paddling at its purest — swim test required.</p>
+            <p>Six-seat outrigger canoes trained off Sentosa, with change races around the region. Open-water paddling at its purest — swim test required.</p>
           </div>
         </article>
-
-        <article class="boat-card tilt fade-in">
-          <div class="boat-photo">
-            <!-- PLACEHOLDER: swap for <img class="boat-img" src="…" alt="…"> when a real photo is ready -->
-            <svg class="boat-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 17c5-2.5 15-2.5 20 0-2 2-5 3-10 3S4 19 2 17z"/><path d="M18 4 8 15"/><path d="M17 3.2c1.5-.9 3.2.4 2.9 2-.2 1.2-1.4 2.4-3 2.1-1.6-.3-1.7-2.2-.8-3.2.2-.3.5-.6.9-.9z"/></svg>
-          </div>
-          <div class="boat-body">
-            <p class="boat-meta">Solo boats · Your pace</p>
+        <article class="sport-card" data-slot="2">
+          <img src="Pictures/sport-singlecraft.jpg" alt="Solo paddler racing a V1 at the IVF time trials" loading="lazy">
+          <span class="sport-num" aria-hidden="true">03</span>
+          <div class="sport-caption">
+            <p class="sport-meta">Solo boats · Your pace</p>
             <h3>Single Crafts</h3>
-            <p class="boat-desc">OC1 and small craft for paddlers who want solo time on the water — technique, fitness and quiet mornings before the city wakes up.</p>
+            <p>OC1 and small craft for paddlers who want solo time on the water — technique, fitness and quiet mornings before the city wakes up.</p>
           </div>
         </article>
-
-        <article class="boat-card tilt fade-in">
-          <div class="boat-photo">
-            <!-- PLACEHOLDER: swap for <img class="boat-img" src="…" alt="…"> when a real photo is ready -->
-            <svg class="boat-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 5v4"/><path d="M4 7h4"/><path d="M18 5v4"/><path d="M16 7h4"/><path d="M7 7h10" stroke-dasharray="0"/><circle cx="12" cy="14" r="3"/><path d="M12 17v4"/><path d="M9 21h6"/></svg>
-          </div>
-          <div class="boat-body">
-            <p class="boat-meta">Off the water · Play hard</p>
+        <article class="sport-card" data-slot="3">
+          <img src="Pictures/sport-land.jpg" alt="Austcham paddlers at a gym land-training session" loading="lazy">
+          <span class="sport-num" aria-hidden="true">04</span>
+          <div class="sport-caption">
+            <p class="sport-meta">Off the water · Play hard</p>
             <h3>Land &amp; Socials</h3>
-            <p class="boat-desc">Land training keeps the crews sharp; the social calendar keeps them together. We train hard, but we don't forget to play hard.</p>
+            <p>Land training keeps the crews sharp; the social calendar keeps them together. We train hard, but we don't forget to play hard.</p>
           </div>
         </article>
       </div>
@@ -2567,30 +2660,35 @@
   const crewTitle = crewSection.querySelector('.crew-title');
   const canSpot = !prefersReducedMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-  if (canSpot) {
-    let spotTargetX = 50, spotTargetY = 40;
-    let spotX = 50, spotY = 40;
-    let spotRaf = null;
+  // Soft light bloom that trails the cursor over a section (consumed by its spot layer's --mx/--my).
+  function initSpotlight(section) {
+    if (!canSpot || !section) return;
+    let targetX = 50, targetY = 40;
+    let x = 50, y = 40;
+    let raf = null;
 
-    function stepSpot() {
-      spotX += (spotTargetX - spotX) * 0.08;
-      spotY += (spotTargetY - spotY) * 0.08;
-      crewSection.style.setProperty('--mx', `${spotX.toFixed(2)}%`);
-      crewSection.style.setProperty('--my', `${spotY.toFixed(2)}%`);
-      if (Math.abs(spotTargetX - spotX) + Math.abs(spotTargetY - spotY) > 0.05) {
-        spotRaf = requestAnimationFrame(stepSpot);
+    function step() {
+      x += (targetX - x) * 0.08;
+      y += (targetY - y) * 0.08;
+      section.style.setProperty('--mx', `${x.toFixed(2)}%`);
+      section.style.setProperty('--my', `${y.toFixed(2)}%`);
+      if (Math.abs(targetX - x) + Math.abs(targetY - y) > 0.05) {
+        raf = requestAnimationFrame(step);
       } else {
-        spotRaf = null;
+        raf = null;
       }
     }
 
-    crewSection.addEventListener('pointermove', (e) => {
-      const rect = crewSection.getBoundingClientRect();
-      spotTargetX = ((e.clientX - rect.left) / rect.width) * 100;
-      spotTargetY = ((e.clientY - rect.top) / rect.height) * 100;
-      if (!spotRaf) spotRaf = requestAnimationFrame(stepSpot);
+    section.addEventListener('pointermove', (e) => {
+      const rect = section.getBoundingClientRect();
+      targetX = ((e.clientX - rect.left) / rect.width) * 100;
+      targetY = ((e.clientY - rect.top) / rect.height) * 100;
+      if (!raf) raf = requestAnimationFrame(step);
     });
   }
+
+  initSpotlight(crewSection);
+  initSpotlight(document.getElementById('activities'));
 
   if (!prefersReducedMotion) {
     let crewTicking = false;
@@ -2621,6 +2719,68 @@
 
     updateCrew();
   }
+
+  // ---------- Sports carousel (stacked deck) ----------
+  const sportDeck = document.getElementById('sport-deck');
+  const sportCards = Array.from(sportDeck.querySelectorAll('.sport-card'));
+  const sportDots = Array.from(document.querySelectorAll('#sport-dots .sport-dot'));
+  let sportCurrent = 0;
+
+  function sportLayout() {
+    sportCards.forEach((card, i) => {
+      card.dataset.slot = (i - sportCurrent + sportCards.length) % sportCards.length;
+    });
+    sportDots.forEach((dot, i) => {
+      if (i === sportCurrent) dot.setAttribute('aria-current', 'true');
+      else dot.removeAttribute('aria-current');
+    });
+  }
+
+  function sportGo(delta) {
+    sportCurrent = (sportCurrent + delta + sportCards.length) % sportCards.length;
+    sportLayout();
+  }
+
+  document.getElementById('sport-prev').addEventListener('click', () => sportGo(-1));
+  document.getElementById('sport-next').addEventListener('click', () => sportGo(1));
+
+  sportDots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      sportCurrent = i;
+      sportLayout();
+    });
+  });
+
+  // Swipe/drag: the active card follows the pointer; past the threshold the deck advances.
+  let sportDragId = null;
+  let sportStartX = 0;
+
+  sportDeck.addEventListener('pointerdown', (e) => {
+    sportDragId = e.pointerId;
+    sportStartX = e.clientX;
+    sportDeck.classList.add('dragging');
+    sportDeck.setPointerCapture(e.pointerId);
+  });
+
+  sportDeck.addEventListener('pointermove', (e) => {
+    if (e.pointerId !== sportDragId) return;
+    const dx = e.clientX - sportStartX;
+    sportCards[sportCurrent].style.transform = `translateX(${(dx * 0.45).toFixed(1)}px) rotate(${(dx * 0.012).toFixed(2)}deg)`;
+  });
+
+  function sportDragEnd(e) {
+    if (e.pointerId !== sportDragId) return;
+    const dx = e.clientX - sportStartX;
+    sportDragId = null;
+    sportDeck.classList.remove('dragging');
+    sportCards[sportCurrent].style.transform = '';
+    if (Math.abs(dx) > 60) sportGo(dx < 0 ? 1 : -1);
+  }
+
+  sportDeck.addEventListener('pointerup', sportDragEnd);
+  sportDeck.addEventListener('pointercancel', sportDragEnd);
+
+  sportLayout();
 
   // ---------- Footer year ----------
   document.getElementById('year').textContent = new Date().getFullYear();
