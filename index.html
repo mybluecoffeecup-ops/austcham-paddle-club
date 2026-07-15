@@ -271,14 +271,19 @@
       position: static;
       flex-direction: row;
       align-items: center;
-      gap: 1.6rem;
+      gap: 1rem;
       background: none;
       padding: 0;
       border: none;
     }
 
-    nav a { padding: 0.35rem 0; }
+    nav a { padding: 0.35rem 0; font-size: 0.92rem; }
     nav a.cta-link { margin-top: 0; }
+  }
+
+  @media (min-width: 1100px) {
+    nav { gap: 1.6rem; }
+    nav a { font-size: 1rem; }
   }
 
   /* ---------- Hero ---------- */
@@ -391,42 +396,85 @@
     50% { transform: translateY(-5px) rotate(1.2deg); }
   }
 
-  /* ---------- Race board (stats strip) ---------- */
+  /* ---------- Crew showcase (key club numbers + team photo) ---------- */
   #race-board {
-    background: var(--green);
+    position: relative;
+    background: #06190f;
     color: var(--white);
-    padding: 3.2rem 1.5rem;
-    border-top: 3px solid var(--gold);
+    padding: 5rem 1.5rem 4rem;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  /* soft light bloom that trails the cursor (JS sets --mx / --my) */
+  .crew-spot {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle 340px at var(--mx, 50%) var(--my, 40%), rgba(247, 245, 238, 0.13), transparent 70%);
+    pointer-events: none;
+  }
+
+  .crew-inner {
+    position: relative;
+    max-width: 1140px;
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+  }
+
+  .crew-title {
+    position: relative;
+    z-index: 0;
+    margin: 0 0 -0.32em;
+    font-size: clamp(3rem, 11vw, 8.5rem);
+    font-weight: 800;
+    line-height: 1;
+    background: linear-gradient(180deg, #ffffff 25%, rgba(255, 255, 255, 0.3));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .crew-photo {
+    position: relative;
+    z-index: 1;
+    margin: 0 auto;
+    width: min(880px, 92vw);
+  }
+
+  .crew-photo img {
+    width: 100%;
+    height: auto;
+    filter: saturate(0.88) contrast(1.03);
+    -webkit-mask-image: radial-gradient(ellipse 76% 86% at 50% 46%, #000 55%, transparent 98%);
+    mask-image: radial-gradient(ellipse 76% 86% at 50% 46%, #000 55%, transparent 98%);
+    will-change: transform;
   }
 
   .board-grid {
-    max-width: 1140px;
-    margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem 1rem;
-    text-align: center;
+    margin-top: 0.5rem;
+    text-align: left;
   }
 
   .board-item strong {
     display: block;
-    font-family: var(--font-mono);
-    font-weight: 600;
-    font-size: clamp(2rem, 5vw, 3rem);
-    color: var(--gold);
+    font-weight: 500;
+    font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+    color: #eceeea;
     font-variant-numeric: tabular-nums;
     line-height: 1.1;
   }
 
   .board-item span {
     display: block;
-    margin-top: 0.35rem;
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    color: rgba(255, 255, 255, 0.7);
+    margin-top: 0.3rem;
+    font-size: 0.85rem;
+    color: rgba(236, 238, 234, 0.6);
   }
 
   @media (min-width: 768px) {
@@ -803,58 +851,431 @@
     .testimonial-grid { grid-template-columns: repeat(2, 1fr); }
   }
 
-  /* ---------- Join steps ---------- */
+  /* ---------- Membership ---------- */
   #join { background: var(--white); }
 
-  .steps {
-    list-style: none;
-    counter-reset: step;
-    margin: 0;
-    padding: 0;
+  .benefit-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    margin-bottom: 3.2rem;
+  }
+
+  .benefit-item {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.4rem;
+  }
+
+  .benefit-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--green);
+    color: var(--gold);
+    margin-bottom: 0.9rem;
+  }
+
+  .benefit-icon svg { width: 24px; height: 24px; }
+
+  .benefit-item h3 { font-size: 1.25rem; color: var(--green); }
+
+  .benefit-item p { margin: 0; color: var(--ink-soft); font-size: 0.94rem; }
+
+  @media (min-width: 640px) {
+    .benefit-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (min-width: 1024px) {
+    .benefit-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* Pricing lanes */
+  .lane-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1.4rem;
   }
 
-  .step {
-    counter-increment: step;
+  .lane-card {
+    position: relative;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--green-mid);
+    border-radius: var(--radius);
+    padding: 1.8rem 1.5rem 1.5rem;
+    overflow: hidden;
+  }
+
+  .lane-card--featured {
+    background: var(--deep);
+    border-color: var(--gold);
+    border-top-color: var(--gold);
+    box-shadow: var(--shadow);
+  }
+
+  .lane-card--featured h3,
+  .lane-card--featured .lane-price { color: var(--white); }
+
+  .lane-card--featured .lane-term { color: rgba(255, 255, 255, 0.65); }
+
+  .lane-card--featured .lane-includes li { color: rgba(255, 255, 255, 0.8); }
+
+  .lane-ribbon {
+    position: absolute;
+    top: 14px;
+    right: -34px;
+    transform: rotate(38deg);
+    background: var(--gold);
+    color: var(--deep);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 0.3rem 2.6rem;
+  }
+
+  .lane-no {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--gold-deep);
+    margin-bottom: 0.6rem;
+  }
+
+  .lane-card h3 { font-size: 1.45rem; color: var(--green); margin-bottom: 0.2em; }
+
+  .lane-price {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 2.4rem;
+    color: var(--green);
+    margin: 0;
+    line-height: 1.1;
+  }
+
+  .lane-term {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+    margin: 0.2rem 0 0.9rem;
+  }
+
+  .lane-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--green-mid);
+    border: 1px solid var(--green-mid);
+    border-radius: 999px;
+    padding: 0.2rem 0.7rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .lane-includes {
+    list-style: none;
+    margin: 0;
+    padding: 0.9rem 0 0;
+    border-top: 1px dashed var(--line);
+  }
+
+  .lane-includes li {
+    position: relative;
+    padding-left: 1.4rem;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    margin-bottom: 0.45rem;
+  }
+
+  .lane-includes li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--gold-deep);
+    font-weight: 700;
+  }
+
+  @media (min-width: 640px) {
+    .lane-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (min-width: 1024px) {
+    .lane-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  /* Student strip */
+  .student-strip {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.5rem;
+    margin-top: 1.4rem;
+  }
+
+  .student-copy h3 { font-size: 1.45rem; color: var(--green); margin-bottom: 0.15em; }
+
+  .student-copy p { margin: 0; color: var(--ink-soft); font-size: 0.94rem; }
+
+  .student-prices {
+    display: flex;
+    gap: 1.6rem;
+    align-items: baseline;
+  }
+
+  .student-price {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 1.7rem;
+    color: var(--green);
+  }
+
+  .student-price small {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+
+  @media (min-width: 768px) {
+    .student-strip {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .student-strip .lane-no { margin-bottom: 0; }
+    .student-copy { flex: 1; margin: 0 1.5rem; }
+  }
+
+  /* How-to-join strip */
+  .howto-strip {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    background: var(--deep);
+    border-radius: var(--radius);
+    padding: 1.6rem 1.5rem;
+    margin-top: 2.4rem;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .howto-step { display: flex; align-items: baseline; gap: 0.7rem; }
+
+  .howto-step p { margin: 0; font-size: 0.95rem; }
+
+  .howto-no {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+  }
+
+  .howto-arrow { color: var(--gold); display: none; }
+
+  .howto-cta {
+    color: var(--gold);
+    font-weight: 600;
+    text-decoration-color: rgba(255, 199, 44, 0.5);
+  }
+
+  .howto-cta:hover { color: var(--gold-deep); }
+
+  @media (min-width: 900px) {
+    .howto-strip {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.2rem;
+    }
+    .howto-arrow { display: inline; }
+    .howto-step { flex: 1; }
+  }
+
+  /* ---------- Training times ---------- */
+  #training { background: var(--paper); }
+
+  .week-legend {
+    list-style: none;
+    margin: -1.6rem 0 2.2rem;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.7rem 1.8rem;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+
+  .week-legend li { display: flex; align-items: center; gap: 0.5rem; }
+
+  .week-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
+
+  .day-col {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1rem 0.9rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .day-col h3 {
+    font-size: 1.05rem;
+    color: var(--green);
+    margin: 0 0 0.2rem;
+    letter-spacing: 0.08em;
+  }
+
+  .chip {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-radius: 999px;
+    padding: 0.35rem 0.7rem;
+    white-space: nowrap;
+  }
+
+  .chip-oc { background: var(--gold); color: var(--deep); }
+
+  .chip-db { background: var(--green-mid); color: var(--white); }
+
+  .chip-land {
+    background: transparent;
+    color: var(--green-mid);
+    border: 1.5px solid var(--green-mid);
+  }
+
+  .chip-rest {
+    background: transparent;
+    color: var(--ink-soft);
+    border: 1.5px dashed var(--line);
+  }
+
+  @media (min-width: 640px) {
+    .week-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (min-width: 1024px) {
+    .week-grid { grid-template-columns: repeat(7, 1fr); }
+    .day-col { padding: 1rem 0.6rem 1.1rem; align-items: flex-start; }
+    .chip { font-size: 0.6rem; white-space: normal; }
+  }
+
+  /* ---------- Newbie FAQ ---------- */
+  #faq { background: var(--white); }
+
+  .faq-list { max-width: 760px; margin: 0 auto; }
+
+  .faq-item {
     background: var(--paper);
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    padding: 1.8rem 1.6rem;
-    position: relative;
+    margin-bottom: 0.9rem;
+    overflow: hidden;
   }
 
-  .step::before {
-    content: counter(step, decimal-leading-zero);
-    display: block;
+  .faq-item summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.1rem 1.3rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-size: 1.1rem;
+    color: var(--green);
+  }
+
+  .faq-item summary::-webkit-details-marker { display: none; }
+
+  .faq-item summary::after {
+    content: "+";
+    flex-shrink: 0;
     font-family: var(--font-mono);
-    font-weight: 600;
-    font-size: 0.85rem;
-    letter-spacing: 0.14em;
+    font-size: 1.1rem;
     color: var(--gold-deep);
-    margin-bottom: 0.7rem;
+    transition: transform 0.2s ease;
   }
 
-  .step h3 { font-size: 1.4rem; color: var(--green); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
 
-  .step p { margin: 0; color: var(--ink-soft); font-size: 0.98rem; }
+  .faq-item[open] summary { border-bottom: 1px solid var(--line); }
 
-  .join-note {
-    margin: 2rem auto 0;
-    max-width: 720px;
-    background: rgba(255, 199, 44, 0.14);
-    border-left: 4px solid var(--gold);
-    border-radius: 0 var(--radius) var(--radius) 0;
-    padding: 1.1rem 1.4rem;
-    font-size: 0.95rem;
+  .faq-body { padding: 1rem 1.3rem 1.2rem; }
+
+  .faq-body p { margin: 0 0 0.6em; color: var(--ink-soft); font-size: 0.96rem; }
+
+  .faq-body p:last-child { margin-bottom: 0; }
+
+  .faq-body a { color: var(--green-mid); font-weight: 600; }
+
+  .bring-list {
+    list-style: none;
+    margin: 0.4rem 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  .bring-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.5rem 1rem 0.5rem 0.5rem;
+    font-size: 0.88rem;
     color: var(--ink);
   }
 
-  .join-note p { margin: 0; }
+  .bring-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--green);
+    color: var(--gold);
+  }
 
-  @media (min-width: 768px) {
-    .steps { grid-template-columns: repeat(3, 1fr); }
+  .bring-icon svg { width: 17px; height: 17px; }
+
+  @media (min-width: 640px) {
+    .bring-list { grid-template-columns: repeat(2, 1fr); }
   }
 
   /* ---------- Enquiry Form ---------- */
@@ -1097,6 +1518,9 @@
     transform: translateY(0);
   }
 
+  .fade-in.delay-1 { transition-delay: 0.18s; }
+  .fade-in.delay-2 { transition-delay: 0.36s; }
+
   /* ---------- WhatsApp widget ---------- */
   .whatsapp-widget {
     position: fixed;
@@ -1266,6 +1690,7 @@
       <a href="#races">Races</a>
       <a href="#challenge">10km Challenge</a>
       <a href="#testimonials">Reviews</a>
+      <a href="#join">Membership</a>
       <a href="#enquiry" class="cta-link">Join a Newbie Day</a>
     </nav>
   </div>
@@ -1370,13 +1795,20 @@
     </div>
   </section>
 
-  <!-- Race board: club numbers styled like a regatta timing screen -->
+  <!-- Crew showcase: giant headline, team photo, key club numbers (cursor spotlight + staged reveal) -->
   <section id="race-board" aria-label="Club at a glance">
-    <div class="board-grid">
-      <div class="board-item"><strong class="count-up" data-target="1988" data-format="plain">0</strong><span>Founded</span></div>
-      <div class="board-item"><strong class="count-up" data-target="3" data-format="plain">0</strong><span>Paddle Disciplines</span></div>
-      <div class="board-item"><strong class="count-up" data-target="2024" data-format="plain">0</strong><span>Worlds Grand Final</span></div>
-      <div class="board-item"><strong class="count-up" data-target="15" data-format="plus">0</strong><span>Open to Ages</span></div>
+    <div class="crew-spot" aria-hidden="true"></div>
+    <div class="crew-inner">
+      <h2 class="crew-title fade-in">Our Mighty Crew</h2>
+      <figure class="crew-photo fade-in delay-1">
+        <img src="Pictures/TeamPhoto%20(10k%202024).JPG" alt="Austcham Paddle Club paddlers celebrating together at the 10km Challenge, 2024" loading="lazy">
+      </figure>
+      <div class="board-grid fade-in delay-2">
+        <div class="board-item"><strong class="count-up" data-target="1988" data-format="plain">0</strong><span>Founded</span></div>
+        <div class="board-item"><strong class="count-up" data-target="3" data-format="plain">0</strong><span>Paddle Disciplines</span></div>
+        <div class="board-item"><strong class="count-up" data-target="2024" data-format="plain">0</strong><span>Worlds Grand Final</span></div>
+        <div class="board-item"><strong class="count-up" data-target="15" data-format="plus">0</strong><span>Open to Ages</span></div>
+      </div>
     </div>
   </section>
 
@@ -1593,30 +2025,193 @@
     </div>
   </section>
 
-  <!-- Join steps -->
+  <!-- Membership -->
   <section id="join">
     <div class="container">
       <div class="section-heading fade-in">
-        <span class="eyebrow">How to Join</span>
-        <h2>Three Steps to the Start Line</h2>
-        <p>Getting in the boat is simpler than you think.</p>
+        <span class="eyebrow">Membership</span>
+        <h2>Pick Your Lane</h2>
+        <p>One club, four ways in. Every membership unlocks the full Austcham experience — train, race, and play hard.</p>
       </div>
-      <ol class="steps">
-        <li class="step fade-in">
-          <h3>Sign the Indemnity</h3>
-          <p>Read and e-sign the club's indemnity form — it takes a couple of minutes online before your first session.</p>
-        </li>
-        <li class="step fade-in">
-          <h3>Complete Your Bio</h3>
-          <p>Fill in the short member's bio form so the coaches know your experience level and can seat you right.</p>
-        </li>
-        <li class="step fade-in">
-          <h3>Show Up &amp; Paddle</h3>
-          <p>Follow the club on socials for session calls, grab a jersey ($20), and take your seat in the boat.</p>
-        </li>
-      </ol>
-      <div class="join-note fade-in">
-        <p><strong>Heading out on the outrigger?</strong> A swim test (without a personal flotation device) is mandatory for outrigger paddlers — know your water confidence before you commit. Checking the weather and tide forecast before sessions is always encouraged.</p>
+
+      <div class="benefit-grid">
+        <div class="benefit-item fade-in">
+          <div class="benefit-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12c2-2.5 4-2.5 6 0s4 2.5 6 0 4-2.5 6 0"/><path d="M2 18c2-2.5 4-2.5 6 0s4 2.5 6 0 4-2.5 6 0"/><path d="M2 6c2-2.5 4-2.5 6 0s4 2.5 6 0 4-2.5 6 0"/></svg>
+          </div>
+          <h3>Train Without Limits</h3>
+          <p>Every water session at Kallang and Sentosa, plus land training and fitness sessions.</p>
+        </div>
+        <div class="benefit-item fade-in">
+          <div class="benefit-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4"/><path d="M5 4c4-2 8 2 14 0v9c-6 2-10-2-14 0"/></svg>
+          </div>
+          <h3>Race the Calendar</h3>
+          <p>Entry to local and international races, with discounted race fees for members.</p>
+        </div>
+        <div class="benefit-item fade-in">
+          <div class="benefit-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>
+          </div>
+          <h3>Coaching That Compounds</h3>
+          <p>Experienced coaches and personalised technique development at every level.</p>
+        </div>
+        <div class="benefit-item fade-in">
+          <div class="benefit-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L4.2 8.7l5.4-.8z"/></svg>
+          </div>
+          <h3>Member-Only Socials</h3>
+          <p>Exclusive events and gatherings — the "play hard" half of the deal.</p>
+        </div>
+        <div class="benefit-item fade-in">
+          <div class="benefit-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4l4 2 4-2 4 4-3 3v10H7V11L4 8z"/></svg>
+          </div>
+          <h3>Kit &amp; Partner Perks</h3>
+          <p>Exclusive club and race apparel, plus discounts with club partners.</p>
+        </div>
+        <div class="benefit-item fade-in">
+          <div class="benefit-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M15.2 14.3c2.2.4 3.8 2.3 3.8 4.7"/></svg>
+          </div>
+          <h3>A Crew, Not Just a Club</h3>
+          <p>An international community with room to grow into leadership and coaching roles.</p>
+        </div>
+      </div>
+
+      <div class="lane-grid">
+        <article class="lane-card lane-card--featured fade-in">
+          <span class="lane-ribbon">Best Value</span>
+          <span class="lane-no" aria-hidden="true">Lane 1</span>
+          <h3>Annual</h3>
+          <p class="lane-price">$600</p>
+          <p class="lane-term">Jan – Dec</p>
+          <ul class="lane-includes">
+            <li>Full access to training sessions and races</li>
+            <li>Exclusive member-only events</li>
+            <li>Discounted race fees</li>
+            <li>Exclusive club and race apparel</li>
+          </ul>
+        </article>
+        <article class="lane-card fade-in">
+          <span class="lane-no" aria-hidden="true">Lane 2</span>
+          <h3>Quarterly</h3>
+          <p class="lane-price">$200</p>
+          <p class="lane-term">Per quarter</p>
+          <ul class="lane-includes">
+            <li>Full access to training sessions and races</li>
+            <li>Exclusive member-only events</li>
+            <li>Discounted race fees</li>
+            <li>Exclusive club and race apparel</li>
+          </ul>
+        </article>
+        <article class="lane-card fade-in">
+          <span class="lane-no" aria-hidden="true">Lane 3</span>
+          <h3>Affiliate Annual</h3>
+          <p class="lane-price">$330</p>
+          <p class="lane-term">Per year</p>
+          <span class="lane-tag">Outrigger only</span>
+          <ul class="lane-includes">
+            <li>Full access to training sessions and races</li>
+            <li>Exclusive member-only events</li>
+            <li>Discounted race fees</li>
+            <li>Exclusive club and race apparel</li>
+          </ul>
+        </article>
+        <article class="lane-card fade-in">
+          <span class="lane-no" aria-hidden="true">Lane 4</span>
+          <h3>Affiliate Quarterly</h3>
+          <p class="lane-price">$140</p>
+          <p class="lane-term">Per quarter</p>
+          <span class="lane-tag">Outrigger only</span>
+          <ul class="lane-includes">
+            <li>Full access to training sessions and races</li>
+            <li>Exclusive member-only events</li>
+            <li>Discounted race fees</li>
+            <li>Exclusive club and race apparel</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="student-strip fade-in">
+        <span class="lane-no" aria-hidden="true">Student Lane</span>
+        <div class="student-copy">
+          <h3>Student</h3>
+          <p>Every membership benefit at student pricing — just bring a valid student ID.</p>
+        </div>
+        <div class="student-prices">
+          <span class="student-price">$360<small>/year</small></span>
+          <span class="student-price">$120<small>/quarter</small></span>
+        </div>
+      </div>
+
+      <div class="howto-strip fade-in">
+        <div class="howto-step">
+          <span class="howto-no" aria-hidden="true">01</span>
+          <p>Sign up for a trial package — two dragon boat sessions.</p>
+        </div>
+        <span class="howto-arrow" aria-hidden="true">→</span>
+        <div class="howto-step">
+          <span class="howto-no" aria-hidden="true">02</span>
+          <p>Select your plan and complete payment.</p>
+        </div>
+        <span class="howto-arrow" aria-hidden="true">→</span>
+        <div class="howto-step">
+          <span class="howto-no" aria-hidden="true">03</span>
+          <p><a class="howto-cta" href="#enquiry">"Get stuck in!" — start with a trial</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Training times -->
+  <section id="training">
+    <div class="container">
+      <div class="section-heading fade-in">
+        <span class="eyebrow">Training Times</span>
+        <h2>Your Week on the Water</h2>
+        <p>Dawn paddles, evening land sessions, weekend crews — find the sessions that fit your week.</p>
+      </div>
+
+      <ul class="week-legend fade-in" aria-label="Session types">
+        <li><span class="chip chip-oc">OC</span> Outrigger Canoe · Sentosa</li>
+        <li><span class="chip chip-db">DB</span> Dragon Boat · Kallang</li>
+        <li><span class="chip chip-land">Land</span> Land Training</li>
+      </ul>
+
+      <div class="week-grid fade-in">
+        <div class="day-col">
+          <h3>Mon</h3>
+          <span class="chip chip-rest">Recovery</span>
+        </div>
+        <div class="day-col">
+          <h3>Tue</h3>
+          <span class="chip chip-oc">OC · 5:45–7:30am</span>
+          <span class="chip chip-land">Land · 7–8pm</span>
+        </div>
+        <div class="day-col">
+          <h3>Wed</h3>
+          <span class="chip chip-db">DB · 6:45–8am</span>
+        </div>
+        <div class="day-col">
+          <h3>Thu</h3>
+          <span class="chip chip-oc">OC · 5:45–7:30am</span>
+          <span class="chip chip-land">Land · 7:30–8:30pm</span>
+        </div>
+        <div class="day-col">
+          <h3>Fri</h3>
+          <span class="chip chip-rest">Recovery</span>
+        </div>
+        <div class="day-col">
+          <h3>Sat</h3>
+          <span class="chip chip-oc">OC · 8–10am</span>
+          <span class="chip chip-db">DB · 8–10am</span>
+        </div>
+        <div class="day-col">
+          <h3>Sun</h3>
+          <span class="chip chip-db">DB · 8–10am</span>
+          <span class="chip chip-oc">OC · 4–6pm</span>
+        </div>
       </div>
     </div>
   </section>
@@ -1680,6 +2275,79 @@
     </div>
   </section>
 
+  <!-- Newbie FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-heading fade-in">
+        <span class="eyebrow">Newbie FAQ</span>
+        <h2>Before Your First Paddle</h2>
+        <p>Everything first-timers ask us, answered straight.</p>
+      </div>
+      <div class="faq-list fade-in">
+        <details class="faq-item">
+          <summary>I've never paddled before — can I join?</summary>
+          <div class="faq-body">
+            <p>Absolutely. Most of our paddlers started with zero experience. All nationalities, fitness levels and genders are welcome (ages 15+), our coaches teach the basics from stroke one, and regular Newbie Days are built exactly for first-timers.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>How do I sign up for a session?</summary>
+          <div class="faq-body">
+            <p>Start with the trial package — two dragon boat sessions. Send us the <a href="#enquiry">enquiry form</a> or message us on WhatsApp and we'll point you at the next session.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>Where do we meet?</summary>
+          <div class="faq-body">
+            <p>Dragon boat sessions run from the Kallang Water Sports Centre, 10 Stadium Lane — a short walk from Stadium MRT. Outrigger sessions launch from Sentosa. Aim to arrive 10–15 minutes early so the crew hits the water on time.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>What should I bring?</summary>
+          <div class="faq-body">
+            <p>The training essentials:</p>
+            <ul class="bring-list">
+              <li>
+                <span class="bring-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4"/><path d="M10 5h4"/><path d="M9 5c-1.5 2-2 3.5-2 6v8a3 3 0 003 3h4a3 3 0 003-3v-8c0-2.5-.5-4-2-6z"/><path d="M7 13h10"/></svg></span>
+                Big bottle of water
+              </li>
+              <li>
+                <span class="bring-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2.5"/><path d="M12 19.5V22"/><path d="M2 12h2.5"/><path d="M19.5 12H22"/><path d="M4.9 4.9l1.8 1.8"/><path d="M17.3 17.3l1.8 1.8"/><path d="M4.9 19.1l1.8-1.8"/><path d="M17.3 6.7l1.8-1.8"/></svg></span>
+                Sunscreen
+              </li>
+              <li>
+                <span class="bring-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4l4 2 4-2 4 4-3 3v10H7V11L4 8z"/></svg></span>
+                Sporty clothes, a hat and flip-flops
+              </li>
+              <li>
+                <span class="bring-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="13" rx="2"/><path d="M8 7V5a4 4 0 018 0v2"/><path d="M4 12h16"/></svg></span>
+                Change of dry clothes
+              </li>
+            </ul>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>Do I need to be able to swim?</summary>
+          <div class="faq-body">
+            <p>For dragon boat, personal flotation devices are available, so confident swimming isn't a hard requirement. For outrigger, a swim test without a PFD is mandatory — be honest with yourself about your water confidence, and check the weather and tide forecast before sessions.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>What does a session look like?</summary>
+          <div class="faq-body">
+            <p>A group warm-up on land, technique work, then the bulk of the session on the water — around 1.5 to 2 hours all up, scaled to the crew on the day.</p>
+          </div>
+        </details>
+        <details class="faq-item">
+          <summary>How do I meet people at the club?</summary>
+          <div class="faq-body">
+            <p>Stick around after training — the crew usually grabs food or drinks together — and watch for member-only socials and events at our partner venues. Train hard, play hard.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
   <!-- Sponsors strip -->
   <section id="sponsors">
     <h2>Powered by Our Partners</h2>
@@ -1719,6 +2387,9 @@
         <li><a href="#races">Races</a></li>
         <li><a href="#challenge">10km Challenge</a></li>
         <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#join">Membership</a></li>
+        <li><a href="#training">Training Times</a></li>
+        <li><a href="#faq">Newbie FAQ</a></li>
         <li><a href="#enquiry">Join Us</a></li>
       </ul>
     </div>
@@ -1934,6 +2605,59 @@
     });
 
     requestRacesUpdate();
+  }
+
+  // ---------- Crew showcase: cursor spotlight + photo parallax ----------
+  const crewSection = document.getElementById('race-board');
+  const crewImg = crewSection.querySelector('.crew-photo img');
+  const canSpot = !prefersReducedMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  if (canSpot) {
+    let spotTargetX = 50, spotTargetY = 40;
+    let spotX = 50, spotY = 40;
+    let spotRaf = null;
+
+    function stepSpot() {
+      spotX += (spotTargetX - spotX) * 0.08;
+      spotY += (spotTargetY - spotY) * 0.08;
+      crewSection.style.setProperty('--mx', `${spotX.toFixed(2)}%`);
+      crewSection.style.setProperty('--my', `${spotY.toFixed(2)}%`);
+      if (Math.abs(spotTargetX - spotX) + Math.abs(spotTargetY - spotY) > 0.05) {
+        spotRaf = requestAnimationFrame(stepSpot);
+      } else {
+        spotRaf = null;
+      }
+    }
+
+    crewSection.addEventListener('pointermove', (e) => {
+      const rect = crewSection.getBoundingClientRect();
+      spotTargetX = ((e.clientX - rect.left) / rect.width) * 100;
+      spotTargetY = ((e.clientY - rect.top) / rect.height) * 100;
+      if (!spotRaf) spotRaf = requestAnimationFrame(stepSpot);
+    });
+  }
+
+  if (!prefersReducedMotion) {
+    let crewTicking = false;
+
+    function updateCrew() {
+      const rect = crewSection.getBoundingClientRect();
+      const vh = window.innerHeight;
+      if (rect.bottom < 0 || rect.top > vh) return;
+      const progress = (vh - rect.top) / (vh + rect.height); // 0 → 1 as the section crosses the viewport
+      crewImg.style.transform = `translateY(${((progress - 0.5) * -36).toFixed(1)}px)`;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (crewTicking) return;
+      crewTicking = true;
+      requestAnimationFrame(() => {
+        crewTicking = false;
+        updateCrew();
+      });
+    }, { passive: true });
+
+    updateCrew();
   }
 
   // ---------- Footer year ----------
