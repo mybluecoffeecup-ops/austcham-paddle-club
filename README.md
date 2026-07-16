@@ -2,7 +2,7 @@
 
 A single-page marketing site for Austcham Paddle Club, one of Singapore's longest-established dragon boat and outrigger canoe clubs, built with plain HTML, CSS, and JavaScript — no frameworks, no build step, no dependencies.
 
-**Live site:** https://mybluecoffeecup-ops.github.io/austcham-paddle-club/
+**Live site:** https://austchampaddleclubsg.com/
 
 ![Austcham Paddle Club homepage screenshot](assets/screenshot.png)
 
