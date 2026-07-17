@@ -1030,9 +1030,7 @@
   }
 
   /* Pricing lanes — a race course with beaded buoy ropes between lanes */
-  /* water: fades in from white at the top into soft green around the lane tops */
   .lane-pool {
-    background: linear-gradient(180deg, transparent 0, rgba(20, 92, 66, 0.11) 90px);
     padding: 2rem 0.5rem 0.5rem;
   }
 
@@ -1067,27 +1065,13 @@
   .lane-card {
     position: relative;
     flex: 0 0 auto;
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
     padding: 1.8rem 1.5rem 1.5rem;
     overflow: hidden;
     display: flex;
     flex-direction: column;
   }
 
-  .lane-card--featured {
-    background: var(--deep);
-    border-color: var(--gold);
-    box-shadow: var(--shadow);
-  }
-
-  .lane-card--featured h3,
-  .lane-card--featured .lane-price { color: var(--white); }
-
-  .lane-card--featured .lane-term { color: rgba(255, 255, 255, 0.65); }
-
-  .lane-card--featured .lane-includes li { color: rgba(255, 255, 255, 0.8); }
+  .lane-card--featured { border-top: 3px solid var(--gold); }
 
   .lane-ribbon {
     position: absolute;
@@ -2265,8 +2249,6 @@
         </div>
       </div>
 
-      <div class="buoy-rope fade-in" aria-hidden="true"></div>
-
       <div class="student-strip fade-in">
         <span class="lane-no" aria-hidden="true">Student Lane</span>
         <div class="student-copy">
@@ -2414,13 +2396,13 @@
       <div class="section-heading fade-in">
         <span class="eyebrow">Newbie FAQ</span>
         <h2>Before Your First Paddle</h2>
-        <p>Everything first-timers ask us, answered straight.</p>
+        <p>Everything first-timers ask us, there are no stupid questions.</p>
       </div>
       <div class="faq-list fade-in">
         <details class="faq-item">
           <summary>I've never paddled before — can I join?</summary>
           <div class="faq-body">
-            <p>Absolutely. Most of our paddlers started with zero experience. All nationalities, fitness levels and genders are welcome (ages 15+), our coaches teach the basics from stroke one, and regular Newbie Days are built exactly for first-timers.</p>
+            <p>Absolutely. Most of our paddlers started with zero experience. All nationalities, fitness levels and genders are welcome (ages 15+), our coaches teach the basics from stroke one, and regular Newbie Days are built exactly for first-timers. Trial sessions are $25</p>
           </div>
         </details>
         <details class="faq-item">
@@ -2472,9 +2454,9 @@
           </div>
         </details>
         <details class="faq-item">
-          <summary>How do I meet people at the club?</summary>
+          <summary>I'm a visiting paddler, can I join?</summary>
           <div class="faq-body">
-            <p>Stick around after training — the crew usually grabs food or drinks together — and watch for member-only socials and events at our partner venues. Train hard, play hard.</p>
+            <p>Yes, visiting paddlers are welcome to join our sessions. Just check our schedule and contact us to confirm availability.</p>
           </div>
         </details>
       </div>
@@ -2485,14 +2467,13 @@
   <section id="sponsors">
     <h2>Powered by Our Partners</h2>
     <ul class="sponsor-list fade-in">
-      <li>Mogambo</li>
+      <li>Lion's Brewery</li>
       <li>Hero's Bar</li>
       <li>Muscle Lab</li>
       <li>Simply Active</li>
       <li>Sunday Shades</li>
-      <li>Activ Labs</li>
       <li>Pay 2 Home</li>
-      <li>Wandr-e</li>
+      <li>Siloso Beach Resort</li>
       <li>Hipstercity</li>
     </ul>
   </section>
@@ -2504,13 +2485,11 @@
   <div class="footer-grid">
     <div>
       <div class="footer-brand">
-        <span class="crest" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6.5 21 17 4.5"/><path d="M15.2 3.2c1.8-1 3.8.5 3.4 2.4-.3 1.5-1.7 3-3.6 2.6-1.9-.4-2-2.6-1-3.9.3-.4.7-.8 1.2-1.1z" fill="currentColor" stroke="none"/></svg>
-        </span>
+        <img class="crest" src="Pictures/Austcham%20Square%20Logo%20-%20Yellow%20Green.PNG" alt="" width="44" height="44">
         Austcham Paddle Club
       </div>
       <p>Train hard. Play hard. Dragon boat, outrigger canoe and single crafts on Singapore's water since 1988 — affiliated with the Australian Chamber of Commerce.</p>
-      <p>Kallang Water Sports Centre<br>10 Stadium Lane, Singapore 397774<br>Near Stadium MRT</p>
+      <p>Kallang Dragonboat Nursury<br>Kallang Riveside Park, 5 Stadium Road 397732<br>Near Stadium/Kallang MRT</p>
     </div>
     <div>
       <h3>Quick Links</h3>
