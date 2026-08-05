@@ -939,11 +939,18 @@
     background: var(--white);
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    padding: 1.8rem 1.6rem;
     box-shadow: 0 6px 18px rgba(10, 43, 31, 0.07);
+  }
+
+  .testimonial-card summary {
+    cursor: pointer;
+    list-style: none;
     display: flex;
     flex-direction: column;
+    padding: 1.8rem 1.6rem;
   }
+
+  .testimonial-card summary::-webkit-details-marker { display: none; }
 
   .review-head {
     display: flex;
@@ -984,8 +991,33 @@
   .testimonial-card blockquote {
     margin: 0;
     color: var(--ink-soft);
-    font-size: 0.98rem;
+    font-size: 0.85rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
   }
+
+  .testimonial-card[open] blockquote {
+    -webkit-line-clamp: unset;
+    overflow: visible;
+  }
+
+  .testimonial-toggle {
+    margin-top: 0.7rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--green-mid);
+  }
+
+  .testimonial-toggle--open { display: none; }
+
+  .testimonial-card[open] .testimonial-toggle--closed { display: none; }
+
+  .testimonial-card[open] .testimonial-toggle--open { display: inline; }
 
   @media (min-width: 640px) {
     .testimonial-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1108,6 +1140,7 @@
     color: var(--green);
     margin: 0;
     line-height: 1.1;
+    display: none; /* pricing hidden temporarily — remove this line to re-enable */
   }
 
   .lane-term {
@@ -1202,6 +1235,7 @@
     font-weight: 600;
     font-size: 1.7rem;
     color: var(--green);
+    display: none; /* pricing hidden temporarily — remove this line to re-enable */
   }
 
   .student-price small {
@@ -1873,8 +1907,8 @@
       <a href="#why-us">Why Austcham</a>
       <a href="#races">Races</a>
       <a href="#challenge">10km Challenge</a>
-      <a href="#testimonials">Reviews</a>
       <a href="#join">Membership</a>
+      <a href="#training">Training Times</a>
       <a href="#faq">FAQs</a>
       <a href="#enquiry" class="cta-link">Sign Up</a>
     </nav>
@@ -2006,7 +2040,7 @@
     <div class="container">
       <div class="section-heading fade-in">
         <span class="eyebrow">Why Austcham</span>
-        <h2>Paddle With Pedigree</h2>
+        <h2>Paddle, Party and Progress</h2>
         <p>Nearly four decades on Singapore's water — for new explorers and experienced paddlers alike.</p>
       </div>
       <div class="why-grid">
@@ -2033,10 +2067,10 @@
         </div>
         <div class="why-item fade-in">
           <div class="why-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7.5 7-12a7 7 0 10-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.4"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 8 5 20l11-4z"/><path d="M17 4l1 2"/><path d="M21 8l-2 1"/><path d="M20 15l2 1"/><circle cx="14" cy="4" r="0.6" fill="currentColor" stroke="none"/></svg>
           </div>
-          <h3>Home at Kallang</h3>
-          <p>We paddle from the Kallang Dragonboat Nursury, minutes from Stadium MRT — with outrigger sessions off Sentosa's Siloso.</p>
+          <h3>Get Fit and Get Lit</h3>
+          <p>No matter what fitness goals you may have, we'll help you get there. That also applies to party fitness — we're an active bunch with monthly drinks and an active participant in IDBC (International Dragonboating Community) events!</p>
         </div>
       </div>
     </div>
@@ -2124,50 +2158,74 @@
         <p>What paddlers say about training with Austcham on Google.</p>
       </div>
       <div class="testimonial-grid">
-        <article class="testimonial-card fade-in">
-          <div class="review-head">
-            <div class="review-avatar" aria-hidden="true">D</div>
-            <div>
-              <div class="review-name">Danielle</div>
-              <span class="review-source">Local Guide · Google Review</span>
+        <details class="testimonial-card fade-in">
+          <summary>
+            <div class="review-head">
+              <div class="review-avatar" aria-hidden="true">D</div>
+              <div>
+                <div class="review-name">Danielle</div>
+                <span class="review-source">Local Guide · Google Review</span>
+              </div>
             </div>
-          </div>
-          <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
-          <blockquote>"Such an amazing team! Before I joined Austcham, I was not a very sporty person, but the team was so welcoming. There is a diverse mix of expats and locals, great team spirit, awesome fun on and off the water! For those wanting to try Dragon boating, Austcham is a fantastic team!"</blockquote>
-        </article>
-        <article class="testimonial-card fade-in">
-          <div class="review-head">
-            <div class="review-avatar" aria-hidden="true">A</div>
-            <div>
-              <div class="review-name">Andrew</div>
-              <span class="review-source">Google Review</span>
+            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote>"Such an amazing team! Before I joined Austcham, I was not a very sporty person, but the team was so welcoming. There is a diverse mix of expats and locals, great team spirit, awesome fun on and off the water! For those wanting to try Dragon boating, Austcham is a fantastic team!"</blockquote>
+            <span class="testimonial-toggle" aria-hidden="true">
+              <span class="testimonial-toggle--closed">Read full review</span>
+              <span class="testimonial-toggle--open">Show less</span>
+            </span>
+          </summary>
+        </details>
+        <details class="testimonial-card fade-in">
+          <summary>
+            <div class="review-head">
+              <div class="review-avatar" aria-hidden="true">A</div>
+              <div>
+                <div class="review-name">Andrew</div>
+                <span class="review-source">Google Review</span>
+              </div>
             </div>
-          </div>
-          <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
-          <blockquote>"I joined the club 2 yrs ago with a few goals: lose weight, meet some new friends, have fun, and learn a new skill/sport. Austcham paddle club helped me achieve all of this. While there are Australian roots, the club is international in its membership base, family-oriented, but equally competitive for those seeking medals and heated competition, professional coaching and even international events. It's been a great choice for me and I would recommend the club and sport to anyone. Have a go!!!"</blockquote>
-        </article>
-        <article class="testimonial-card fade-in">
-          <div class="review-head">
-            <div class="review-avatar" aria-hidden="true">B</div>
-            <div>
-              <div class="review-name">Ben</div>
-              <span class="review-source">Google Review</span>
+            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote>"I joined the club 2 yrs ago with a few goals: lose weight, meet some new friends, have fun, and learn a new skill/sport. Austcham paddle club helped me achieve all of this. While there are Australian roots, the club is international in its membership base, family-oriented, but equally competitive for those seeking medals and heated competition, professional coaching and even international events. It's been a great choice for me and I would recommend the club and sport to anyone. Have a go!!!"</blockquote>
+            <span class="testimonial-toggle" aria-hidden="true">
+              <span class="testimonial-toggle--closed">Read full review</span>
+              <span class="testimonial-toggle--open">Show less</span>
+            </span>
+          </summary>
+        </details>
+        <details class="testimonial-card fade-in">
+          <summary>
+            <div class="review-head">
+              <div class="review-avatar" aria-hidden="true">B</div>
+              <div>
+                <div class="review-name">Ben</div>
+                <span class="review-source">Google Review</span>
+              </div>
             </div>
-          </div>
-          <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
-          <blockquote>"I never tried dragonboat before, and I'm glad I did it with Austcham! The team was welcoming and gave me lots of instruction so I could learn how to do it. There's a good balance of social fun and events and competition. I joined to try a new sport and have now been with the team for a few years - glad I found this quirky and fun group."</blockquote>
-        </article>
-        <article class="testimonial-card fade-in">
-          <div class="review-head">
-            <div class="review-avatar" aria-hidden="true">W</div>
-            <div>
-              <div class="review-name">Wendy</div>
-              <span class="review-source">Local Guide · Google Review</span>
+            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote>"I never tried dragonboat before, and I'm glad I did it with Austcham! The team was welcoming and gave me lots of instruction so I could learn how to do it. There's a good balance of social fun and events and competition. I joined to try a new sport and have now been with the team for a few years - glad I found this quirky and fun group."</blockquote>
+            <span class="testimonial-toggle" aria-hidden="true">
+              <span class="testimonial-toggle--closed">Read full review</span>
+              <span class="testimonial-toggle--open">Show less</span>
+            </span>
+          </summary>
+        </details>
+        <details class="testimonial-card fade-in">
+          <summary>
+            <div class="review-head">
+              <div class="review-avatar" aria-hidden="true">W</div>
+              <div>
+                <div class="review-name">Wendy</div>
+                <span class="review-source">Local Guide · Google Review</span>
+              </div>
             </div>
-          </div>
-          <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
-          <blockquote>"You definitely don't need to be Aussie to join Austcham Paddle Club 🦘 — most of us aren't! This club's a great balance for both the competitive type wanting to try a new sport 🥇, and those just in it for the social vibes and post-paddle BEERS 🍻. The crew's a fun mix of expats and local Singaporeans 🇸🇬, super welcoming and down-to-earth. It's chill, funny, and one of the most relaxed (but still VERY successful) communities in Singapore 😎🏆"</blockquote>
-        </article>
+            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote>"You definitely don't need to be Aussie to join Austcham Paddle Club 🦘 — most of us aren't! This club's a great balance for both the competitive type wanting to try a new sport 🥇, and those just in it for the social vibes and post-paddle BEERS 🍻. The crew's a fun mix of expats and local Singaporeans 🇸🇬, super welcoming and down-to-earth. It's chill, funny, and one of the most relaxed (but still VERY successful) communities in Singapore 😎🏆"</blockquote>
+            <span class="testimonial-toggle" aria-hidden="true">
+              <span class="testimonial-toggle--closed">Read full review</span>
+              <span class="testimonial-toggle--open">Show less</span>
+            </span>
+          </summary>
+        </details>
       </div>
     </div>
   </section>
