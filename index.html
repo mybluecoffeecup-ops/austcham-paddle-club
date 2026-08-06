@@ -2425,12 +2425,6 @@
               <span class="error-msg" id="phone-error"></span>
             </div>
 
-            <div class="field">
-              <label for="preferred-date">Preferred Session Date</label>
-              <input type="date" id="preferred-date" name="preferredDate" aria-describedby="preferred-date-error">
-              <span class="error-msg" id="preferred-date-error"></span>
-            </div>
-
             <div class="field full-width">
               <label for="message">Message</label>
               <textarea id="message" name="message" aria-describedby="message-error" placeholder="Tell us your paddling experience (none is fine!), which boat interests you — dragon boat, outrigger or single craft — and any questions you have..."></textarea>
@@ -2917,7 +2911,6 @@
     fullName: document.getElementById('full-name'),
     email: document.getElementById('email'),
     phone: document.getElementById('phone'),
-    preferredDate: document.getElementById('preferred-date'),
     message: document.getElementById('message'),
   };
 
@@ -3048,7 +3041,6 @@
       fullName: fields.fullName.value.trim(),
       email: fields.email.value.trim(),
       phone: fields.phone.value.trim(),
-      preferredDate: fields.preferredDate.value,
       message: fields.message.value.trim(),
       _subject: 'New Paddler Enquiry - Austcham Paddle Club',
       _template: 'table',
