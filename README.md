@@ -22,7 +22,7 @@ A single-page marketing site for Austcham Paddle Club, one of Singapore's longes
 - "How Do I Get Started?" banner (modeled on the 10km Challenge banner) with the three-step sign-up flow and a trial CTA
 - Weekly training-times grid covering outrigger (Sentosa), dragon boat (Kallang), and land sessions
 - Newbie FAQ accordion (native `<details>`/`<summary>`) with a what-to-bring checklist
-- Enquiry form with client-side validation (name, email, phone), accessible inline error messages, live submission via [FormSubmit](https://formsubmit.co/), and a confetti + voice-message celebration on success
+- Enquiry form — name, email, phone and message — with client-side validation on name/email/phone, accessible inline error messages, live submission via [FormSubmit](https://formsubmit.co/), and a confetti + voice-message celebration on success
 - Floating WhatsApp chat widget (bottom-right) with suggested quick-reply questions and deep links to `wa.me`
 - SEO metadata: descriptive title/description, Open Graph & Twitter cards, canonical URL, and JSON-LD structured data
 - Footer with contact details, quick links, social links, and an auto-updating copyright year
