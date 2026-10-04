@@ -27,7 +27,7 @@
     --water-fill: rgba(42, 120, 214, 0.16);
     --night: rgba(10, 43, 31, 0.07);
     --route-short: rgba(255, 199, 44, 0.45);
-    --route-long: rgba(255, 199, 44, 0.2);
+    --route-long: rgba(255, 199, 44, 0.3);
     --good: #0ca30c;
     --warning: #fab219;
     --critical: #d03b3b;
@@ -49,7 +49,7 @@
       --water-fill: rgba(57, 135, 229, 0.22);
       --night: rgba(255, 255, 255, 0.05);
       --route-short: rgba(255, 199, 44, 0.35);
-      --route-long: rgba(255, 199, 44, 0.14);
+      --route-long: rgba(255, 199, 44, 0.2);
       color-scheme: dark;
     }
   }
@@ -64,7 +64,7 @@
     --water-fill: rgba(57, 135, 229, 0.22);
     --night: rgba(255, 255, 255, 0.05);
     --route-short: rgba(255, 199, 44, 0.35);
-    --route-long: rgba(255, 199, 44, 0.14);
+    --route-long: rgba(255, 199, 44, 0.2);
     color-scheme: dark;
   }
 
@@ -431,19 +431,21 @@
     // (or heavy-rain) 2-hr forecast, within 6 km. Strikes count for 30 minutes.
     cat1: { radiusKm: 6, strikeWindowMin: 30, watchKm: 15 },
     psi: { hold: 120, caution: 100 },  // club rule: don't go above 24-hr PSI 120
+    // 'outback' routes have a fixed outbound heading; 'loop' routes can be paddled either way round.
     routes: [
-      { key: 'short', name: '10 km — White Marker', minutes: 75, loop: false },
-      { key: 'long', name: 'Around the islands — up to 22 km', minutes: 165, loop: true },
+      { key: 'short', name: '10 km — White Marker', minutes: 75, type: 'outback', outbound: 'East', turnPoint: 'the White Marker' },
+      { key: 'long', name: 'Around the islands — up to 2.5 hrs', minutes: 150, type: 'loop' },
     ],
+    whiteMarker: { lat: 1.252210, lon: 103.848572 },
     // Club sessions (day of week: 0 = Sunday), in Singapore time.
     sessions: [
-      { dow: 2, hour: 6, label: 'Tue 6am' },
-      { dow: 4, hour: 6, label: 'Thu 6am' },
-      { dow: 6, hour: 8, label: 'Sat 8am' },
-      { dow: 0, hour: 16, label: 'Sun 4pm' },
+      { dow: 2, hour: 6, label: 'Tue 6am', routes: ['short'] },
+      { dow: 4, hour: 6, label: 'Thu 6am', routes: ['short'] },
+      { dow: 6, hour: 8, label: 'Sat 8am', routes: ['long'] },
+      { dow: 0, hour: 16, label: 'Sun 4pm', routes: ['long'] },
     ],
-    // Current set off Sentosa. Falling tide: stream runs east → west. Club rule: go out with the
-    // current and come home against it.
+    // Current set off Sentosa. Falling tide: stream runs east → west. Club rule: push into the
+    // current first and ride it home (falling tide → push East).
     current: {
       falling: { flowsTo: 270, label: 'E → W', withIt: 'West', againstIt: 'East' },
       rising:  { flowsTo: 90,  label: 'W → E', withIt: 'East', againstIt: 'West' },
@@ -600,25 +602,39 @@
     return { prev, next, rising, f, range, phase, size, flow: flowFor(rising), h: tide.height(t) };
   }
 
-  // Route plan: go out with the current, come home against it. The flow that matters is the net
-  // flow over each leg, so a tide that turns mid-paddle is accounted for.
+  // Route plan: push into the current first and ride it home. The flow that matters is the net
+  // flow over each leg (first half / second half), so a tide that turns mid-paddle is accounted for.
   function routePlan(tide, start, route) {
     const half = start + route.minutes * 30e3, end = start + route.minutes * 60e3;
     const [h0, hm, h1] = [tide.height(start), tide.height(half), tide.height(end)];
     if ([h0, hm, h1].some((v) => v == null)) return null;
     const out = flowFor(hm >= h0), home = flowFor(h1 >= hm);
     const turns = tide.ext.filter((e) => e.t > start && e.t < end);
-    return { route, start, half, end, out, home, turns, homeAgainst: home === out };
+    return { route, start, half, end, out, home, turns };
   }
+  const OPPOSITE = { East: 'West', West: 'East' };
   function routeHtml(p) {
     const r = p.route;
-    const lead = r.loop
-      ? `Start the loop heading <b>${p.out.withIt}</b>, with the ${p.out.label} current, so the run back to Siloso is <b>${p.out.againstIt}</b> into it.`
-      : `Head out <b>${p.out.withIt}</b> with the ${p.out.label} current, turn around ~${fmtTime(new Date(p.half))} and come home <b>${p.out.againstIt}</b> against it.`;
     const turns = p.turns.map((e) => `${e.type === 'high' ? 'High' : 'Low'} tide at ${fmtTime(new Date(e.t))} — current swings around.`).join(' ');
-    const home = p.homeAgainst ? '' : ` By the ${r.loop ? 'second half' : 'home leg'} the current has turned ${p.home.label}, so expect it with you on the way back.`;
-    return `<li><strong>${esc(r.name)} · ~${fmtDur(r.minutes * 60e3)}, back ~${fmtTime(new Date(p.end))}</strong>${lead}${turns ? ' ' + turns : ''}${home}</li>`;
+    let lead;
+    if (r.type === 'outback') {
+      // Fixed heading: say whether each leg has the current with or against it.
+      const home = OPPOSITE[r.outbound];
+      const outWith = p.out.withIt === r.outbound, homeWith = p.home.withIt === home;
+      const verdict = !outWith && homeWith ? '✓ Ideal — push out into it, ride it home.'
+        : outWith && !homeWith ? '✗ Hard finish — the current will be against you on the way home.'
+        : outWith ? 'Current with you both ways.' : 'Current against you both ways.';
+      lead = `Out <b>${r.outbound}</b> to ${r.turnPoint} (turn ~${fmtTime(new Date(p.half))}): current ${p.out.label}, <b>${outWith ? 'with' : 'against'}</b> you. ` +
+        `Home <b>${home}</b>: current ${p.home.label}, <b>${homeWith ? 'with' : 'against'}</b> you. ${verdict}`;
+    } else {
+      // Loop: start into the current that will be running in the second half, so you finish with it.
+      const startDir = p.home.againstIt;
+      lead = `Go round heading <b>${startDir}</b> first, into the ${p.home.label} current, so the run home to Siloso is <b>${OPPOSITE[startDir]}</b> with it.` +
+        (p.out !== p.home ? ` The tide turns early on — for the first part the ${p.out.label} current is with you.` : '');
+    }
+    return `<li><strong>${esc(r.name)} · ~${fmtDur(r.minutes * 60e3)}, back ~${fmtTime(new Date(p.end))}</strong>${lead}${turns ? ' ' + turns : ''}</li>`;
   }
+  const routesFor = (keys) => CONFIG.routes.filter((r) => !keys || keys.includes(r.key));
 
   let tideNow = null; // shared with the wind section for wind-against-tide
 
@@ -709,8 +725,8 @@
     hit.addEventListener('pointerleave', () => { tip.style.display = 'none'; hover.setAttribute('visibility', 'hidden'); });
   }
 
-  // Small tide curve around a session: shaded bands show the 10 km and 22 km paddle windows.
-  function miniTideChart(tide, t0) {
+  // Small tide curve around a session: shaded bands show the session's paddle window(s).
+  function miniTideChart(tide, t0, routes) {
     const from = t0 - HOUR, to = t0 + 4 * HOUR;
     const W = 340, H = 120, pad = { l: 8, r: 8, t: 20, b: 18 };
     const pts = [];
@@ -721,9 +737,10 @@
     const x = (t) => pad.l + (t - from) / (to - from) * (W - pad.l - pad.r);
     const y = (h) => pad.t + (1 - (h - yMin) / (yMax - yMin)) * (H - pad.t - pad.b);
     const parts = [];
-    const [shortR, longR] = CONFIG.routes;
-    parts.push(`<rect class="route-long" x="${x(t0)}" y="${pad.t}" width="${x(t0 + longR.minutes * 60e3) - x(t0)}" height="${H - pad.t - pad.b}"/>`);
-    parts.push(`<rect class="route-short" x="${x(t0)}" y="${pad.t}" width="${x(t0 + shortR.minutes * 60e3) - x(t0)}" height="${H - pad.t - pad.b}"/>`);
+    for (const r of [...routes].sort((a, b) => b.minutes - a.minutes)) {
+      parts.push(`<rect class="route-${r.key}" x="${x(t0)}" y="${pad.t}" width="${x(t0 + r.minutes * 60e3) - x(t0)}" height="${H - pad.t - pad.b}"/>`);
+      if (r.type === 'outback') parts.push(`<line class="grid-line" x1="${x(t0 + r.minutes * 30e3)}" x2="${x(t0 + r.minutes * 30e3)}" y1="${pad.t}" y2="${H - pad.b}" stroke-dasharray="3 3"/>`);
+    }
     for (let t = Math.ceil(from / HOUR) * HOUR; t <= to; t += HOUR) {
       if (x(t) < 18 || x(t) > W - 18) continue;
       parts.push(`<text x="${x(t)}" y="${H - 4}" text-anchor="middle">${fmtTime(new Date(t)).replace(':00', '').replace(' ', '')}</text>`);
@@ -739,7 +756,7 @@
       parts.push(`<text class="ext-label" x="${x(e.t)}" y="${e.type === 'high' ? y(e.h) - 8 : y(e.h) + 15}" text-anchor="${anchor}">${label}</text>`);
     }
     return `<svg class="tide-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Tide from ${fmtTime(new Date(from))} to ${fmtTime(new Date(to))}">${parts.join('')}</svg>
-      <div class="legend"><span class="l-short">${esc(shortR.name.split(' — ')[0])}</span><span class="l-long">${esc(longR.name.split(' — ')[1] || longR.name)}</span></div>`;
+      <div class="legend">${routes.map((r) => `<span class="l-${r.key}">${esc(r.name)}${r.type === 'outback' ? ' (dashed = turnaround)' : ''}</span>`).join('')}</div>`;
   }
 
   // ---------- NEA station data (data.gov.sg v2, tolerant of the v1 shape) ----------
@@ -952,7 +969,9 @@
     radar.map = L.map('radar-map', { zoomControl: true, scrollWheelZoom: false, attributionControl: true }).setView([1.262, 103.83], 11);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 15, attribution: '© OpenStreetMap · Radar © NEA' }).addTo(radar.map);
     L.circle([SPOT.lat, SPOT.lon], { radius: CONFIG.cat1.radiusKm * 1000, color: '#d03b3b', weight: 1.5, fill: false, dashArray: '5 5' }).addTo(radar.map);
-    L.circleMarker([SPOT.lat, SPOT.lon], { radius: 7, color: '#ffffff', weight: 2, fillColor: '#0f3d2e', fillOpacity: 1 }).addTo(radar.map).bindTooltip(SPOT.name, { permanent: true, direction: 'right' });
+    L.circleMarker([SPOT.lat, SPOT.lon], { radius: 7, color: '#ffffff', weight: 2, fillColor: '#0f3d2e', fillOpacity: 1 }).addTo(radar.map).bindTooltip(SPOT.name, { permanent: true, direction: 'left' });
+    const wm = CONFIG.whiteMarker;
+    L.circleMarker([wm.lat, wm.lon], { radius: 6, color: '#0f3d2e', weight: 2, fillColor: '#ffffff', fillOpacity: 1 }).addTo(radar.map).bindTooltip('White Marker', { permanent: true, direction: 'right' });
   }
 
   async function loadRadar() {
@@ -1034,7 +1053,8 @@
   }
 
   function renderSession(s, tides, wx, outlook) {
-    const longest = Math.max(...CONFIG.routes.map((r) => r.minutes)) * 60e3;
+    const routes = routesFor(s.routes);
+    const longest = Math.max(...routes.map((r) => r.minutes)) * 60e3;
     const stats = [], notes = [];
     let level = 'go', badge = 'Looks OK';
 
@@ -1043,8 +1063,8 @@
       const st = tideState(tide, s.t);
       stats.push(`<div><div class="stat-label">Tide at start</div><div class="stat-value sm">${st.rising ? '▲ Rising' : '▼ Falling'}</div><div class="stat-sub">${st.h.toFixed(2)} m · ${st.next.type} ${fmtTime(new Date(st.next.t))}</div></div>`);
       stats.push(`<div><div class="stat-label">Current at start</div><div class="stat-value sm">${st.flow.label}</div><div class="stat-sub">${st.phase}; ${st.size}</div></div>`);
-      $(`${s.id}-routes`).innerHTML = CONFIG.routes.map((r) => routePlan(tide, s.t, r)).filter(Boolean).map(routeHtml).join('');
-      $(`${s.id}-chart`).innerHTML = miniTideChart(tide, s.t);
+      $(`${s.id}-routes`).innerHTML = routes.map((r) => routePlan(tide, s.t, r)).filter(Boolean).map(routeHtml).join('');
+      $(`${s.id}-chart`).innerHTML = miniTideChart(tide, s.t, routes);
       if (tide.modelled) notes.push('Tide is modelled (Open-Meteo) — tide-forecast.com data doesn\'t reach this far ahead yet.');
     } else {
       stats.push('<div><div class="stat-label">Tide</div><div class="stat-value sm">—</div><div class="stat-sub">not available yet</div></div>');
