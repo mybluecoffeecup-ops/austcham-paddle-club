@@ -27,21 +27,6 @@ A single-page marketing site for Austcham Paddle Club, one of Singapore's longes
 - SEO metadata: descriptive title/description, Open Graph & Twitter cards, canonical URL, and JSON-LD structured data
 - Footer with contact details, quick links, social links, and an auto-updating copyright year
 
-## Sentosa paddle conditions page
-
-[`conditions/`](conditions/) is a separate quick-reference page for crews launching from Siloso Beach, Sentosa — live at https://mybluecoffeecup-ops.github.io/austcham-paddle-club/conditions/. It has a **Right now** view and forecasts for the next club sessions (Tue 6am and Thu 6am — 10 km; Sat 8am and Sun 4pm — islands):
-
-- **Go / Hold verdict on the club rules** — no paddling during a CAT 1 lightning alert (modelled on myENV: cloud-to-ground lightning, or a thundery / heavy-rain 2-hr forecast, within 6 km of Siloso) or when the southern 24-hr PSI is above 120.
-- **Lightning & rain** — strikes in the last 30 min with distance from Siloso, the earliest all-clear time, NEA 2-hr forecasts for nearby areas, the nearest rain gauge, and an animated NEA rain radar with the 6 km CAT 1 ring and strikes plotted.
-- **Haze** — 24-hr PSI and 1-hr PM2.5 for the southern region.
-- **Tide, current & route plan** — rising/falling, height, next turn, a 3-day tide curve with night shading and session markers, and per-route advice following the club rule of pushing into the current first and riding it home (falling tide → push East): the weekday 10 km out-and-back East to the White Marker says whether each leg has the current with or against it, and the weekend islands loop (up to 2.5 hrs) says which way round to go. Advice uses the net current over each half of the paddle, so a tide turning mid-paddle is accounted for. Tide turns come from [tide-forecast.com (Victoria Dock)](https://www.tide-forecast.com/tide/Singapore-Victoria-Dock/tide-times), scraped by `conditions/scripts/fetch_tides.py` during each Pages deploy; when that data is missing, stale or doesn't reach far enough ahead, the page uses Open-Meteo's modelled sea level.
-- **Wind** (info only — no club wind limit) — Open-Meteo forecast for Siloso, nearest NEA station observation, and an on-demand Windy map.
-- **Session cards** — tide and current at the start, route plans, a mini tide chart showing both paddle windows, forecast wind and rain chance, and the NEA 4-day outlook.
-
-Rules, routes (with estimated durations), session times and the current direction convention live in the `CONFIG` object at the top of the page's `<script>`.
-
-Live NEA data comes from the public [data.gov.sg](https://data.gov.sg/) real-time APIs, fetched in the browser and refreshed every 5 minutes.
-
 ## Getting started
 
 There's nothing to install or build. Clone the repo and open the file directly in a browser:
@@ -66,7 +51,7 @@ Everything lives in one file, organized into three layers: HTML markup, a single
 
 ## Deployment
 
-Pushes to `main` (and a 3-hourly schedule, which keeps the conditions page's tide data fresh) automatically deploy to GitHub Pages via the workflow at [.github/workflows/deploy-pages.yml](.github/workflows/deploy-pages.yml). The workflow uploads the whole repo as a Pages artifact (`actions/upload-pages-artifact`) and publishes it with `actions/deploy-pages` — there is no build step. It can also be run manually from the Actions tab via `workflow_dispatch`.
+Pushes to `main` automatically deploy to GitHub Pages via the workflow at [.github/workflows/deploy-pages.yml](.github/workflows/deploy-pages.yml). The workflow uploads the whole repo as a Pages artifact (`actions/upload-pages-artifact`) and publishes it with `actions/deploy-pages` — there is no build step. It can also be run manually from the Actions tab via `workflow_dispatch`.
 
 ## Verifying changes
 
