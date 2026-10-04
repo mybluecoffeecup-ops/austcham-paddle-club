@@ -29,13 +29,16 @@ A single-page marketing site for Austcham Paddle Club, one of Singapore's longes
 
 ## Sentosa paddle conditions page
 
-[`conditions/`](conditions/) is a separate quick-reference page for crews heading out from Sentosa — live at https://mybluecoffeecup-ops.github.io/austcham-paddle-club/conditions/. It combines:
+[`conditions/`](conditions/) is a separate quick-reference page for crews launching from Siloso Beach, Sentosa — live at https://mybluecoffeecup-ops.github.io/austcham-paddle-club/conditions/. It has a **Right now** view and forecasts for the next club sessions (Tue 6am, Thu 6am, Sat 8am, Sun 4pm):
 
-- **Tide & current** — rising/falling, height now, next turn, a 3-day tide curve with night shading, and the current set (falling tide → east-to-west stream) with push-direction advice. Tide turns come from [tide-forecast.com (Victoria Dock)](https://www.tide-forecast.com/tide/Singapore-Victoria-Dock/tide-times), scraped by `conditions/scripts/fetch_tides.py` during each Pages deploy; if that data is missing or stale the page falls back to Open-Meteo's modelled sea level.
-- **Wind** — Open-Meteo point forecast for Sentosa (kt, gusts, direction, next 6 hrs), the nearest NEA station observation, wind-against-tide warning, and an on-demand Windy waves map.
-- **Rain & lightning** — NEA 2-hr forecast for Sentosa and nearby areas, the nearest rain gauge, lightning strikes in the last 30 min (distance from Sentosa), and an animated NEA rain radar with strikes plotted.
+- **Go / Hold verdict on the club rules** — no paddling during a CAT 1 lightning alert (modelled on myENV: cloud-to-ground lightning, or a thundery / heavy-rain 2-hr forecast, within 6 km of Siloso) or when the southern 24-hr PSI is above 120.
+- **Lightning & rain** — strikes in the last 30 min with distance from Siloso, the earliest all-clear time, NEA 2-hr forecasts for nearby areas, the nearest rain gauge, and an animated NEA rain radar with the 6 km CAT 1 ring and strikes plotted.
 - **Haze** — 24-hr PSI and 1-hr PM2.5 for the southern region.
-- An overall **Go / Caution / Hold** verdict. Thresholds live in the `CONFIG` object at the top of the page's `<script>`.
+- **Tide, current & route plan** — rising/falling, height, next turn, a 3-day tide curve with night shading and session markers, and per-route advice (10 km White Marker out-and-back, up to 22 km around the islands) following the club rule of going out with the current and coming home against it, accounting for the tide turning mid-paddle. Tide turns come from [tide-forecast.com (Victoria Dock)](https://www.tide-forecast.com/tide/Singapore-Victoria-Dock/tide-times), scraped by `conditions/scripts/fetch_tides.py` during each Pages deploy; when that data is missing, stale or doesn't reach far enough ahead, the page uses Open-Meteo's modelled sea level.
+- **Wind** (info only — no club wind limit) — Open-Meteo forecast for Siloso, nearest NEA station observation, and an on-demand Windy map.
+- **Session cards** — tide and current at the start, route plans, a mini tide chart showing both paddle windows, forecast wind and rain chance, and the NEA 4-day outlook.
+
+Rules, routes (with estimated durations), session times and the current direction convention live in the `CONFIG` object at the top of the page's `<script>`.
 
 Live NEA data comes from the public [data.gov.sg](https://data.gov.sg/) real-time APIs, fetched in the browser and refreshed every 5 minutes.
 
