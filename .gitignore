@@ -3,3 +3,5 @@
 .agents/
 .claude/skills/
 skills-lock.json
+# Generated in CI by conditions/scripts/fetch_tides.py
+conditions/data/

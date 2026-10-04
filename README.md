@@ -27,6 +27,18 @@ A single-page marketing site for Austcham Paddle Club, one of Singapore's longes
 - SEO metadata: descriptive title/description, Open Graph & Twitter cards, canonical URL, and JSON-LD structured data
 - Footer with contact details, quick links, social links, and an auto-updating copyright year
 
+## Sentosa paddle conditions page
+
+[`conditions/`](conditions/) is a separate quick-reference page for crews heading out from Sentosa — live at https://mybluecoffeecup-ops.github.io/austcham-paddle-club/conditions/. It combines:
+
+- **Tide & current** — rising/falling, height now, next turn, a 3-day tide curve with night shading, and the current set (falling tide → east-to-west stream) with push-direction advice. Tide turns come from [tide-forecast.com (Victoria Dock)](https://www.tide-forecast.com/tide/Singapore-Victoria-Dock/tide-times), scraped by `conditions/scripts/fetch_tides.py` during each Pages deploy; if that data is missing or stale the page falls back to Open-Meteo's modelled sea level.
+- **Wind** — Open-Meteo point forecast for Sentosa (kt, gusts, direction, next 6 hrs), the nearest NEA station observation, wind-against-tide warning, and an on-demand Windy waves map.
+- **Rain & lightning** — NEA 2-hr forecast for Sentosa and nearby areas, the nearest rain gauge, lightning strikes in the last 30 min (distance from Sentosa), and an animated NEA rain radar with strikes plotted.
+- **Haze** — 24-hr PSI and 1-hr PM2.5 for the southern region.
+- An overall **Go / Caution / Hold** verdict. Thresholds live in the `CONFIG` object at the top of the page's `<script>`.
+
+Live NEA data comes from the public [data.gov.sg](https://data.gov.sg/) real-time APIs, fetched in the browser and refreshed every 5 minutes.
+
 ## Getting started
 
 There's nothing to install or build. Clone the repo and open the file directly in a browser:
@@ -51,7 +63,7 @@ Everything lives in one file, organized into three layers: HTML markup, a single
 
 ## Deployment
 
-Pushes to `main` automatically deploy to GitHub Pages via the workflow at [.github/workflows/deploy-pages.yml](.github/workflows/deploy-pages.yml). The workflow uploads the whole repo as a Pages artifact (`actions/upload-pages-artifact`) and publishes it with `actions/deploy-pages` — there is no build step. It can also be run manually from the Actions tab via `workflow_dispatch`.
+Pushes to `main` (and a 3-hourly schedule, which keeps the conditions page's tide data fresh) automatically deploy to GitHub Pages via the workflow at [.github/workflows/deploy-pages.yml](.github/workflows/deploy-pages.yml). The workflow uploads the whole repo as a Pages artifact (`actions/upload-pages-artifact`) and publishes it with `actions/deploy-pages` — there is no build step. It can also be run manually from the Actions tab via `workflow_dispatch`.
 
 ## Verifying changes
 

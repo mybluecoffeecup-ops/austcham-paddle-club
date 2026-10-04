@@ -6,6 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 A single-page marketing site for **Austcham Paddle Club Singapore**, a dragon boat / outrigger canoe / single-craft paddling club on Kallang Basin (affiliated with the Australian Chamber of Commerce, est. 1988), implemented entirely in one static file: [index.html](index.html). There is no build step, no package manager, no framework, and no test suite — plain HTML/CSS/JS only. It's deployed via GitHub Pages.
 
+The one exception is [conditions/index.html](conditions/index.html), a standalone Sentosa paddle-conditions page that follows the same single-file, three-layer pattern. It fetches live NEA/data.gov.sg and Open-Meteo data in the browser and reads `conditions/data/tides.json`, which is generated in CI by `conditions/scripts/fetch_tides.py` (gitignored, never committed). Without that file, for example when previewing locally, the page falls back to modelled tides.
+
 ## Running / previewing
 
 There is nothing to install or build. Open the file directly in a browser:
